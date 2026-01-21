@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Premium Spiritual Palette */
+    /* Base: Stone/Warm Grey */
+    --background: 60 30% 98%; /* #fcfcf7 - Very light warm cream */
+    --foreground: 24 10% 10%; /* #1c1917 - Warm Black */
+
+    --card: 0 0% 100%;
+    --card-foreground: 24 10% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 24 10% 10%;
+
+    /* Primary: Deep Saffron / Burnt Orange */
+    --primary: 24 85% 55%; /* #ea580c - Vibrant but grounded orange */
+    --primary-foreground: 0 0% 98%;
+
+    /* Secondary: Muted Gold/Sand */
+    --secondary: 40 30% 94%;
+    --secondary-foreground: 24 10% 10%;
+
+    --muted: 40 20% 96%;
+    --muted-foreground: 25 5% 45%;
+
+    --accent: 24 85% 55%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 40 10% 90%;
+    --input: 40 10% 90%;
+    --ring: 24 85% 55%;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom Utilities for "Agency" look */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .glass {
+    @apply bg-white/70 backdrop-blur-md border border-white/20;
+  }
+  
+  .hero-gradient {
+    background: radial-gradient(circle at 50% 0%, rgba(234, 88, 12, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 100% 0%, rgba(251, 191, 36, 0.05) 0%, transparent 40%);
+  }
+}
