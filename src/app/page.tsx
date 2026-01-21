@@ -2,17 +2,21 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/server";
 import { TempleCard } from "@/components/temple-card";
-import { ArrowRight, Star, ShieldCheck, Tv, Sparkles } from "lucide-react";
+import { LiveStreamCarousel } from "@/components/live-stream-carousel";
+import { TestimonialsSection } from "@/components/testimonials-section";
+import { ArrowRight, CheckCircle2, Shield, Video, Sparkles, Users, Calendar } from "lucide-react";
 
 export default async function Home() {
   const supabase = createClient();
   
-  // Fetch featured temples
-  const { data: featuredTemples } = await supabase
-    .from("temples")
-    .select("*")
-    .eq("status", "published")
-    .limit(3);
+  // Parallel Data Fetching
+  const [templesRes, streamsRes] = await Promise.all([
+    supabase.from("temples").select("*").eq("status", "published").limit(3),
+    supabase.from("streams").select("*, temples(name, city)").eq("status", "live").order("viewer_count", { ascending: false }).limit(6)
+  ]);
+
+  const featuredTemples = templesRes.data;
+  const liveStreams = streamsRes.data;
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -21,211 +25,163 @@ export default async function Home() {
       <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden hero-gradient">
         <div className="container px-4 mx-auto">
           <div className="flex flex-col lg:flex-row items-center gap-16">
-            
-            {/* Text Content */}
             <div className="flex-1 text-center lg:text-left space-y-8 z-10">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-100/50 border border-orange-200 text-orange-800 text-xs font-medium uppercase tracking-wider">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-100/50 border border-orange-200 text-orange-800 text-xs font-medium uppercase tracking-wider animate-in fade-in slide-in-from-bottom-4 duration-500">
                 <Sparkles className="h-3 w-3" />
-                <span>Spiritual Technology</span>
+                <span>India's #1 Spiritual Platform</span>
               </div>
               
-              <h1 className="text-5xl lg:text-7xl font-bold tracking-tight text-stone-900 leading-[1.1]">
-                Bring the <span className="text-primary italic">Divine</span> <br/>
-                to your doorstep.
+              <h1 className="text-5xl lg:text-7xl font-bold tracking-tight text-stone-900 leading-[1.1] animate-in fade-in slide-in-from-bottom-5 duration-700">
+                Connect with the <span className="text-primary italic">Divine</span> <br/>
+                from anywhere.
               </h1>
               
-              <p className="text-lg text-stone-600 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                Experience authentic Vedic rituals performed by verified pandits. 
-                Book online poojas, watch live darshans, and connect with your faith effortlessly.
+              <p className="text-lg text-stone-600 max-w-xl mx-auto lg:mx-0 leading-relaxed animate-in fade-in slide-in-from-bottom-6 duration-1000">
+                Book authentic poojas at verified temples, watch live aartis, and consult with experienced pandits. 100% Secure & Verified.
               </p>
               
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 animate-in fade-in slide-in-from-bottom-8 duration-1000">
                 <Link href="/temples">
                   <Button size="lg" className="h-14 px-8 rounded-full text-base bg-primary hover:bg-orange-700 shadow-orange-200 shadow-xl transition-all hover:scale-105">
                     Book a Pooja
                   </Button>
                 </Link>
-                <Link href="/live">
+                <Link href="/pandits">
                   <Button variant="outline" size="lg" className="h-14 px-8 rounded-full text-base border-stone-200 hover:bg-white hover:text-primary transition-all">
-                    <Tv className="mr-2 h-4 w-4" />
-                    Live Darshan
+                    Find a Pandit
                   </Button>
                 </Link>
               </div>
 
-              <div className="pt-8 flex items-center justify-center lg:justify-start gap-8 text-stone-500 text-sm">
+              <div className="pt-8 flex items-center justify-center lg:justify-start gap-8 text-stone-500 text-sm animate-in fade-in slide-in-from-bottom-10 duration-1000">
                 <div className="flex items-center gap-2">
-                    <div className="flex -space-x-2">
-                        {[1,2,3].map(i => (
-                            <div key={i} className="h-8 w-8 rounded-full border-2 border-white bg-stone-200" />
-                        ))}
-                    </div>
-                    <span>10k+ Devotees</span>
+                    <Users className="h-4 w-4" />
+                    <span>10k+ Happy Devotees</span>
                 </div>
                 <div className="h-4 w-px bg-stone-300" />
-                <div className="flex items-center gap-1">
-                    <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
-                    <span className="font-medium text-stone-900">4.9/5</span>
-                    <span>Rating</span>
+                <div className="flex items-center gap-2">
+                    <Shield className="h-4 w-4" />
+                    <span>Verified Services</span>
                 </div>
               </div>
             </div>
 
-            {/* Visual/Image Area */}
-            <div className="flex-1 w-full max-w-xl lg:max-w-none relative">
-                <div className="relative aspect-square md:aspect-[4/3] lg:aspect-square rounded-[2rem] overflow-hidden shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-700 ease-out">
-                    {/* Placeholder for high-quality hero image */}
-                    <div className="absolute inset-0 bg-stone-200 animate-pulse" />
-                    <div className="absolute inset-0 bg-gradient-to-tr from-stone-900/20 to-transparent" />
+            <div className="flex-1 w-full max-w-xl lg:max-w-none relative animate-in fade-in zoom-in duration-1000">
+                <div className="relative aspect-square md:aspect-[4/3] lg:aspect-square rounded-[2rem] overflow-hidden shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-700 ease-out border-4 border-white">
+                    <img 
+                        src="https://images.unsplash.com/photo-1561361513-2d000a50f0dc?auto=format&fit=crop&q=80&w=1000" 
+                        alt="Temple Aarti" 
+                        className="absolute inset-0 w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-stone-900/40 to-transparent" />
                     
-                    {/* Floating Cards */}
                     <div className="absolute bottom-8 left-8 right-8 p-6 glass rounded-xl border border-white/40 shadow-lg backdrop-blur-md">
                         <div className="flex items-center gap-4">
                             <div className="h-12 w-12 rounded-full bg-orange-100 flex items-center justify-center text-orange-600">
                                 <div className="h-6 w-6">🕉️</div>
                             </div>
                             <div>
-                                <p className="font-heading font-bold text-lg">Rudrabhishek Pooja</p>
-                                <p className="text-sm text-stone-600">Kashi Vishwanath • Live Now</p>
+                                <p className="font-heading font-bold text-lg text-stone-900">Evening Aarti</p>
+                                <p className="text-sm text-stone-600">Kashi Vishwanath • Live</p>
                             </div>
-                            <Button size="sm" className="ml-auto rounded-full">Join</Button>
+                            <Link href="/live" className="ml-auto">
+                                <Button size="sm" className="rounded-full bg-red-600 hover:bg-red-700 text-white border-0">Watch</Button>
+                            </Link>
                         </div>
                     </div>
                 </div>
-                
-                {/* Decorative Elements */}
-                <div className="absolute -top-12 -right-12 w-24 h-24 bg-orange-400/20 rounded-full blur-2xl" />
-                <div className="absolute -bottom-12 -left-12 w-32 h-32 bg-yellow-400/20 rounded-full blur-2xl" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* --- VALUE PROPOSITION (Bento Grid Style) --- */}
+      {/* --- LIVE STREAMS CAROUSEL --- */}
+      {liveStreams && liveStreams.length > 0 && (
+        <section className="py-12 bg-stone-900 text-white overflow-hidden">
+            <LiveStreamCarousel streams={liveStreams} />
+        </section>
+      )}
+
+      {/* --- VALUE PROPOSITION --- */}
       <section className="py-24 bg-white">
         <div className="container px-4 mx-auto">
             <div className="text-center max-w-2xl mx-auto mb-16">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">Spiritual services, reimagined.</h2>
-                <p className="text-stone-600">We combine ancient traditions with modern convenience to bring you a seamless spiritual experience.</p>
+                <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Choose PoojaNow?</h2>
+                <p className="text-stone-600">We bridge the gap between tradition and technology.</p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6">
-                {/* Card 1 */}
-                <div className="md:col-span-2 bg-stone-50 rounded-3xl p-8 border border-stone-100 relative overflow-hidden group hover:shadow-lg transition-all">
-                    <div className="relative z-10">
-                        <div className="h-12 w-12 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 text-primary">
-                            <ShieldCheck className="h-6 w-6" />
-                        </div>
-                        <h3 className="text-2xl font-bold mb-2">100% Verified Pandits</h3>
-                        <p className="text-stone-600 max-w-md">Every pandit on our platform undergoes a rigorous verification process, including background checks and vedic knowledge assessment.</p>
+            <div className="grid md:grid-cols-3 gap-8">
+                <div className="p-8 rounded-3xl bg-orange-50/50 border border-orange-100 hover:shadow-lg transition-all text-center group">
+                    <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mx-auto mb-6 text-primary group-hover:scale-110 transition-transform">
+                        <Shield className="h-8 w-8" />
                     </div>
-                    <div className="absolute right-0 bottom-0 w-64 h-64 bg-gradient-to-tl from-orange-100/50 to-transparent rounded-tl-full translate-x-1/3 translate-y-1/3 group-hover:scale-110 transition-transform duration-500" />
+                    <h3 className="text-xl font-bold mb-3">100% Verified</h3>
+                    <p className="text-stone-600">Every temple and pandit is vetted. We guarantee authentic rituals.</p>
                 </div>
-
-                {/* Card 2 */}
-                <div className="bg-stone-900 text-white rounded-3xl p-8 relative overflow-hidden group hover:shadow-lg transition-all">
-                    <div className="relative z-10">
-                        <div className="h-12 w-12 bg-white/10 rounded-2xl flex items-center justify-center mb-6 text-white">
-                            <Tv className="h-6 w-6" />
-                        </div>
-                        <h3 className="text-2xl font-bold mb-2">HD Live Streaming</h3>
-                        <p className="text-stone-400">Crystal clear darshan from anywhere in the world.</p>
+                <div className="p-8 rounded-3xl bg-blue-50/50 border border-blue-100 hover:shadow-lg transition-all text-center group">
+                    <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mx-auto mb-6 text-blue-600 group-hover:scale-110 transition-transform">
+                        <Video className="h-8 w-8" />
                     </div>
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <h3 className="text-xl font-bold mb-3">Live Streaming</h3>
+                    <p className="text-stone-600">Watch your pooja being performed live in HD quality from home.</p>
                 </div>
-
-                {/* Card 3 */}
-                <div className="bg-orange-50 rounded-3xl p-8 border border-orange-100 group hover:shadow-lg transition-all">
-                    <h3 className="text-xl font-bold mb-2 text-orange-900">Secure Payments</h3>
-                    <p className="text-orange-700/80 text-sm mb-4">Your dakshina is safe with us until the service is completed.</p>
-                    <div className="h-32 bg-white rounded-xl border border-orange-100 shadow-sm flex items-center justify-center text-stone-300 text-sm">
-                        Payment UI Mockup
+                <div className="p-8 rounded-3xl bg-green-50/50 border border-green-100 hover:shadow-lg transition-all text-center group">
+                    <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mx-auto mb-6 text-green-600 group-hover:scale-110 transition-transform">
+                        <Calendar className="h-8 w-8" />
                     </div>
-                </div>
-
-                {/* Card 4 */}
-                <div className="md:col-span-2 bg-white rounded-3xl p-8 border border-stone-200 shadow-sm group hover:shadow-lg transition-all">
-                     <div className="flex flex-col md:flex-row items-center gap-8">
-                        <div className="flex-1">
-                            <h3 className="text-2xl font-bold mb-2">Global Temple Network</h3>
-                            <p className="text-stone-600 mb-6">Access poojas at Kashi Vishwanath, Siddhivinayak, and 50+ other major temples across India.</p>
-                            <Button variant="outline" className="rounded-full">Explore Temples</Button>
-                        </div>
-                        <div className="flex-1 grid grid-cols-2 gap-3 opacity-80">
-                            <div className="h-24 bg-stone-100 rounded-lg" />
-                            <div className="h-24 bg-stone-100 rounded-lg translate-y-4" />
-                            <div className="h-24 bg-stone-100 rounded-lg" />
-                            <div className="h-24 bg-stone-100 rounded-lg translate-y-4" />
-                        </div>
-                     </div>
+                    <h3 className="text-xl font-bold mb-3">Flexible Booking</h3>
+                    <p className="text-stone-600">Choose your preferred date and time. Reschedule easily if needed.</p>
                 </div>
             </div>
         </div>
       </section>
 
-      {/* --- FEATURED TEMPLES (Horizontal Scroll) --- */}
+      {/* --- FEATURED TEMPLES --- */}
       <section className="py-24 bg-stone-50 border-t border-stone-200">
         <div className="container px-4 mx-auto">
           <div className="flex items-end justify-between mb-12">
             <div>
-                <h2 className="text-3xl font-bold mb-2">Sacred Destinations</h2>
-                <p className="text-stone-600">Book poojas at the most revered temples.</p>
+                <h2 className="text-3xl font-bold mb-2">Popular Temples</h2>
+                <p className="text-stone-600">Most booked destinations this week.</p>
             </div>
             <Link href="/temples">
-                <Button variant="ghost" className="hidden sm:flex group">
-                    View all temples <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                <Button variant="ghost" className="hidden sm:flex group text-primary">
+                    View all <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
             </Link>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {featuredTemples?.map((temple) => (
-                <div key={temple.id} className="group cursor-pointer">
-                    <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-stone-200 mb-4 relative">
-                         {/* Image Placeholder */}
-                         {temple.hero_image_path && (
-                             <img src={temple.hero_image_path} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                         )}
-                         <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
-                         <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide">
-                            {temple.city}
-                         </div>
-                    </div>
-                    <h3 className="text-xl font-bold group-hover:text-primary transition-colors">{temple.name}</h3>
-                    <p className="text-stone-500 text-sm mt-1 line-clamp-2">{temple.description}</p>
-                </div>
+                <TempleCard key={temple.id} temple={temple} />
             ))}
-          </div>
-          
-          <div className="mt-8 sm:hidden">
-            <Link href="/temples">
-                <Button variant="outline" className="w-full">View all temples</Button>
-            </Link>
           </div>
         </div>
       </section>
 
-      {/* --- CTA SECTION --- */}
-      <section className="py-32 bg-stone-900 text-white overflow-hidden relative">
+      {/* --- TESTIMONIALS --- */}
+      <TestimonialsSection />
+
+      {/* --- CTA --- */}
+      <section className="py-24 bg-primary text-white overflow-hidden relative">
         <div className="container px-4 mx-auto relative z-10 text-center">
-            <h2 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
-                Begin your journey today.
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">
+                Your spiritual journey starts here.
             </h2>
-            <p className="text-stone-400 text-lg md:text-xl max-w-2xl mx-auto mb-10">
-                Join our community of devotees and experience the peace of mind that comes with authentic spiritual services.
+            <p className="text-orange-100 text-lg md:text-xl max-w-2xl mx-auto mb-10">
+                Join thousands of devotees who trust PoojaNow for their daily prayers.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Link href="/login?tab=signup">
-                    <Button size="lg" className="h-14 px-10 rounded-full bg-white text-stone-900 hover:bg-stone-100 font-bold text-lg">
-                        Sign Up Free
+                    <Button size="lg" className="h-14 px-10 rounded-full bg-white text-primary hover:bg-stone-100 font-bold text-lg shadow-xl">
+                        Get Started
                     </Button>
                 </Link>
             </div>
         </div>
         
-        {/* Background Gradients */}
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[100px]" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[100px]" />
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
       </section>
     </div>
   );
