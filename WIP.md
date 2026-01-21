@@ -16,7 +16,7 @@
 
 ### 3. Public Pages
 - [x] Landing Page (Redesigned with Premium UI)
-- [x] Temple Directory (`/temples`)
+- [x] Temple Directory (`/temples`) with Modern Cards
 - [x] Temple Detail Page (`/temples/[slug]`)
 - [x] Pandit Directory (`/pandits`)
 - [x] Pandit Profile Page (`/pandits/[id]`)
@@ -26,7 +26,7 @@
 ### 4. Booking System
 - [x] Booking Flow (Date/Time selection)
 - [x] Mock Payment Integration
-- [x] Booking Confirmation
+- [x] Booking Confirmation & Success Page
 
 ### 5. User Portal
 - [x] User Dashboard Layout
@@ -42,28 +42,22 @@
 ### 7. Admin Console
 - [x] Admin Dashboard (Overview Stats)
 - [x] Temple Management (List, Create, Publish/Draft Toggle)
+- [x] Pandit Verification (Approve/Reject Profiles)
+- [x] Booking Management (List, Cancel, Refund)
 
 ---
 
-## 🚧 Work in Progress / Next Steps
+## 🚧 Roadmap for V2 (Future Scope)
 
-### 1. Admin Features (Priority)
-- [ ] **Pandit Management**: Verify/Approve pandit profiles.
-- [ ] **Booking Management**: View all bookings, handle cancellations/refunds.
-- [ ] **Service Management**: Global catalogue of services and offerings.
+### 1. Financials
+- [ ] **Real Payment Gateway**: Integration with Razorpay/Stripe.
+- [ ] **Payouts System**: Automated commission calculation and ledger tracking.
 
-### 2. Payments & Payouts
-- [ ] **Real Payment Integration**: Replace mock payment with Razorpay/Stripe.
-- [ ] **Payouts System**: Logic to calculate commissions and track pandit earnings (Ledger).
-
-### 3. Real-time Features
-- [ ] **Real-time Notifications**: Toast/Email notifications for booking updates.
-- [ ] **Chat System**: Real chat between User and Pandit (currently mocked).
-
-### 4. Refinement
-- [ ] **Search & Filter**: Add search bars and filters to directories.
-- [ ] **SEO Optimization**: Add metadata to all dynamic pages.
-- [ ] **Error Handling**: Better error boundaries and loading states.
+### 2. Advanced Features
+- [ ] **Service Management**: UI for Admins/Pandits to manage services dynamically.
+- [ ] **Real-time Chat**: Functional chat for live streams and user-pandit communication.
+- [ ] **Search Engine**: Full-text search with filters for temples and pandits.
+- [ ] **Notifications**: Email/SMS alerts via SendGrid or Supabase Auth hooks.
 
 ---
 
@@ -72,4 +66,3 @@
 - **Database**: Run `supabase/schema.sql` and `supabase/policies.sql` if setting up a fresh DB.
 - **Seeding**: Use `supabase/seed.sql`, `supabase/seed_services.sql`, and `supabase/seed_streams.sql` for dummy data.
 - **Roles**: Roles are stored in the `profiles` table. To make an admin, update the row manually in Supabase.
-
