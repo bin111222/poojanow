@@ -59,5 +59,5 @@ export async function createBooking(prevState: any, formData: FormData) {
   }
 
   revalidatePath('/u/bookings')
-  redirect(`/u/booking/${booking.id}?success=true`)
+  redirect(`/booking/success?bookingId=${booking.id}`)
 }
