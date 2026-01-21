@@ -4,7 +4,7 @@ import { format } from "date-fns"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { completeBooking } from "../actions"
+import { completeBooking } from "../../actions"
 import { CheckCircle2, Clock, MapPin, User, Upload } from "lucide-react"
 
 export default async function PanditBookingDetailPage({ params }: { params: { id: string } }) {

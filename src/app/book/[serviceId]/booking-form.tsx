@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from "react"
+import { useFormState } from "react-dom"
 import { createBooking } from "../actions"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
@@ -12,9 +13,13 @@ import { cn } from "@/lib/utils"
 import { format } from "date-fns"
 import { CalendarIcon, Loader2 } from "lucide-react"
 
+const initialState = {
+  error: '',
+}
+
 export function BookingForm({ service }: { service: any }) {
   const [date, setDate] = useState<Date>()
-  const [isLoading, setIsLoading] = useState(false)
+  const [state, formAction] = useFormState(createBooking, initialState)
 
   // Generate simple time slots for demo (9 AM to 5 PM)
   const timeSlots = [
@@ -22,7 +27,7 @@ export function BookingForm({ service }: { service: any }) {
   ]
 
   return (
-    <form action={createBooking} className="space-y-6 bg-white p-6 rounded-lg border shadow-sm">
+    <form action={formAction} className="space-y-6 bg-white p-6 rounded-lg border shadow-sm">
       <input type="hidden" name="serviceId" value={service.id} />
       <input type="hidden" name="price" value={service.base_price_inr} />
       
@@ -82,16 +87,13 @@ export function BookingForm({ service }: { service: any }) {
         />
       </div>
 
-      <Button type="submit" className="w-full" disabled={!date || isLoading}>
-        {isLoading ? (
-            <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Processing...
-            </>
-        ) : (
-            "Confirm & Pay"
-        )}
+      {state?.error && (
+        <p className="text-sm text-red-500">{state.error}</p>
+      )}
+
+      <Button type="submit" className="w-full" disabled={!date}>
+        Confirm & Pay
       </Button>
     </form>
   )
 }
-

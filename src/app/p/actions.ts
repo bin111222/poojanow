@@ -15,7 +15,7 @@ export async function completeBooking(formData: FormData) {
     .eq('id', bookingId)
 
   if (error) {
-    return { error: 'Failed to update booking' }
+    throw new Error('Failed to update booking')
   }
 
   // 2. Handle Proof Upload (Mock for MVP)
@@ -34,4 +34,3 @@ export async function completeBooking(formData: FormData) {
   revalidatePath(`/p/booking/${bookingId}`)
   redirect('/p/bookings')
 }
-

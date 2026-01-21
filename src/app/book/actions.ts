@@ -4,7 +4,7 @@ import { createClient } from '@/utils/supabase/server'
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 
-export async function createBooking(formData: FormData) {
+export async function createBooking(prevState: any, formData: FormData) {
   const supabase = createClient()
   
   // Get current user
@@ -61,4 +61,3 @@ export async function createBooking(formData: FormData) {
   revalidatePath('/u/bookings')
   redirect(`/u/booking/${booking.id}?success=true`)
 }
-
