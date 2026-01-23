@@ -7,20 +7,37 @@ import { Button } from "@/components/ui/button"
 export default async function PanditsPage() {
   const supabase = createClient()
   
-  const { data: pandits } = await supabase
+  // Query pandit_profiles first
+  const { data: pandits, error: panditsError } = await supabase
     .from("pandit_profiles")
-    .select(`
-      *,
-      profiles:id (
-        full_name
-      )
-    `)
+    .select("*")
     .eq("profile_status", "published")
     .eq("verification_status", "verified")
 
+  if (panditsError) {
+    console.error("Error fetching pandits:", panditsError)
+  }
+
+  // Get all profile IDs and fetch profiles separately
+  const profileIds = pandits?.map(p => p.id) || []
+  
+  let profilesMap = new Map()
+  if (profileIds.length > 0) {
+    const { data: profiles, error: profilesError } = await supabase
+      .from("profiles")
+      .select("id, full_name")
+      .in("id", profileIds)
+    
+    if (profilesError) {
+      console.error("Error fetching profiles:", profilesError)
+    } else if (profiles) {
+      profiles.forEach(p => profilesMap.set(p.id, p))
+    }
+  }
+
   const formattedPandits = pandits?.map(p => ({
     ...p,
-    full_name: p.profiles?.full_name || "Unknown Pandit"
+    full_name: profilesMap.get(p.id)?.full_name || "Unknown Pandit"
   }))
 
   return (
