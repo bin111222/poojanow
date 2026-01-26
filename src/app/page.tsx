@@ -45,7 +45,7 @@ export default async function Home() {
   const [templesRes, streamsRes, panditsRes, eventTypesRes] = await Promise.all([
     supabase.from("temples").select("*").eq("status", "published").limit(6),
     supabase.from("streams").select("*, temples(name, city)").eq("status", "live").order("viewer_count", { ascending: false }).limit(6),
-    supabase.from("pandit_profiles").select("id, city, state, specialties, rating, total_reviews, years_of_experience, total_bookings, profile_image_path").eq("profile_status", "published").order("rating", { ascending: false, nullsLast: true }).limit(6),
+    supabase.from("pandit_profiles").select("id, city, state, specialties, rating, total_reviews, years_of_experience, total_bookings, profile_image_path").eq("profile_status", "published").order("rating", { ascending: false, nullsFirst: false }).limit(6),
     supabase.from("event_types").select("*").eq("active", true).order("sort_order", { ascending: true }).limit(6)
   ]);
 
