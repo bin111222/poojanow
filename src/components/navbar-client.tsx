@@ -141,7 +141,7 @@ export function NavbarClient({ user }: NavbarClientProps) {
             </nav>
 
             {/* Right Side Actions */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 relative z-50">
               {/* User Menu / Auth */}
               {user ? (
                 <DropdownMenu>
@@ -201,9 +201,15 @@ export function NavbarClient({ user }: NavbarClientProps) {
 
               {/* Mobile Menu Button */}
               <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="lg:hidden h-10 w-10 flex items-center justify-center rounded-lg text-stone-600 hover:text-primary hover:bg-stone-100 transition-colors"
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setIsMobileMenuOpen(!isMobileMenuOpen);
+                }}
+                className="lg:hidden h-10 w-10 flex items-center justify-center rounded-lg text-stone-600 hover:text-primary hover:bg-stone-100 transition-colors relative z-50 touch-manipulation cursor-pointer active:scale-95"
                 aria-label="Toggle menu"
+                aria-expanded={isMobileMenuOpen}
               >
                 {isMobileMenuOpen ? (
                   <X className="h-6 w-6" />

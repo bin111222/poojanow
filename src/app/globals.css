@@ -190,7 +190,7 @@
   }
 
   .animate-slide-in-right {
-    animation: slide-in-right 0.8s ease-out forwards;
+    animation: slide-in-right 0.4s ease-out forwards;
   }
 
   /* Bounce In */
@@ -212,7 +212,7 @@
   }
 
   .animate-bounce-in {
-    animation: bounce-in 0.8s ease-out forwards;
+    animation: bounce-in 0.4s ease-out forwards;
   }
 
   /* Fade In Up */
@@ -228,7 +228,7 @@
   }
 
   .animate-fade-in-up {
-    animation: fade-in-up 0.8s ease-out forwards;
+    animation: fade-in-up 0.4s ease-out forwards;
   }
 
   /* Rotate In */
@@ -317,5 +317,11 @@
 
   .animate-text-reveal {
     animation: text-reveal 0.8s ease-out forwards;
+  }
+
+  /* Touch manipulation for better mobile interactions */
+  .touch-manipulation {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
 }

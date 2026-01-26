@@ -103,9 +103,9 @@ export default async function Home() {
         {/* Enhanced Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-20 left-10 w-72 h-72 bg-orange-200/20 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute top-40 right-20 w-96 h-96 bg-amber-200/15 rounded-full blur-3xl animate-pulse delay-1000" />
-          <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-yellow-200/10 rounded-full blur-3xl animate-pulse delay-2000" />
-          <div className="absolute top-1/2 right-1/4 w-64 h-64 bg-orange-300/10 rounded-full blur-2xl animate-pulse delay-3000" />
+          <div className="absolute top-40 right-20 w-96 h-96 bg-amber-200/15 rounded-full blur-3xl animate-pulse delay-500" />
+          <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-yellow-200/10 rounded-full blur-3xl animate-pulse delay-1000" />
+          <div className="absolute top-1/2 right-1/4 w-64 h-64 bg-orange-300/10 rounded-full blur-2xl animate-pulse delay-1500" />
         </div>
 
         {/* Mesh Gradient Overlay */}
@@ -132,14 +132,14 @@ export default async function Home() {
             {/* Left Content */}
             <div className="flex-1 text-center lg:text-left space-y-8 z-10">
               {/* Enhanced Badge */}
-              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-orange-100 via-amber-100 to-orange-100 border-2 border-orange-200/50 text-orange-800 text-xs font-bold uppercase tracking-wider shadow-lg hover:shadow-xl transition-all hover:scale-105 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-orange-100 via-amber-100 to-orange-100 border-2 border-orange-200/50 text-orange-800 text-xs font-bold uppercase tracking-wider shadow-lg hover:shadow-xl transition-all hover:scale-105 animate-in fade-in slide-in-from-bottom-4 duration-300">
                 <Sparkles className="h-4 w-4 animate-spin-slow" />
                 <span>India's #1 Spiritual Platform</span>
                 <div className="h-2 w-2 bg-green-500 rounded-full animate-ping" />
               </div>
               
               {/* Main Heading with Enhanced Effects */}
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight text-stone-900 leading-[1.05] animate-in fade-in slide-in-from-bottom-5 duration-700">
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight text-stone-900 leading-[1.05] animate-in fade-in slide-in-from-bottom-5 duration-300">
                 Connect with the{" "}
                 <span className="relative inline-block">
                   <span className="text-primary italic bg-gradient-to-r from-orange-600 via-amber-600 to-orange-600 bg-clip-text text-transparent animate-gradient">
@@ -156,16 +156,16 @@ export default async function Home() {
               </h1>
               
               {/* Enhanced Description */}
-              <p className="text-lg sm:text-xl text-stone-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed animate-in fade-in slide-in-from-bottom-6 duration-1000">
+              <p className="text-lg sm:text-xl text-stone-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed animate-in fade-in slide-in-from-bottom-6 duration-500">
                 Book authentic poojas at verified temples, watch live aartis in HD, and consult with experienced pandits. 
                 <span className="font-semibold text-stone-700"> 100% Secure & Verified.</span>
               </p>
               
               {/* Enhanced CTA Buttons */}
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 animate-in fade-in slide-in-from-bottom-8 duration-1000">
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 animate-in fade-in slide-in-from-bottom-8 duration-500">
                 <Link href="/poojas">
                   <Button size="lg" className="group relative h-16 px-10 rounded-full text-base bg-gradient-to-r from-orange-600 via-amber-600 to-orange-600 hover:from-orange-700 hover:via-amber-700 hover:to-orange-700 text-white shadow-2xl shadow-orange-300/50 hover:shadow-3xl hover:shadow-orange-400/50 transition-all hover:scale-105 hover:-translate-y-1 overflow-hidden">
-                    <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+                    <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500" />
                     <Sparkles className="mr-2 h-5 w-5 group-hover:rotate-12 transition-transform" />
                     Book a Pooja
                     <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
@@ -186,7 +186,7 @@ export default async function Home() {
               </div>
 
               {/* Enhanced Trust Indicators */}
-              <div className="pt-8 flex flex-wrap items-center justify-center lg:justify-start gap-4 text-stone-600 animate-in fade-in slide-in-from-bottom-10 duration-1000">
+              <div className="pt-8 flex flex-wrap items-center justify-center lg:justify-start gap-4 text-stone-600 animate-in fade-in slide-in-from-bottom-10 duration-500">
                 <div className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/80 backdrop-blur-md border border-stone-200/70 shadow-md hover:shadow-lg transition-all hover:scale-105">
                   <Users className="h-5 w-5 text-primary" />
                   <span className="text-sm font-semibold">10k+ Happy Devotees</span>
@@ -206,11 +206,11 @@ export default async function Home() {
             <div className="flex-1 w-full max-w-xl lg:max-w-none relative">
               <div className="relative animate-slide-in-right">
                 {/* Main Image Container with Enhanced Effects */}
-                <div className="relative aspect-square md:aspect-[4/3] lg:aspect-square rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white/90 rotate-2 hover:rotate-0 transition-all duration-700 ease-out group hover-lift">
+                <div className="relative aspect-square md:aspect-[4/3] lg:aspect-square rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white/90 rotate-2 hover:rotate-0 transition-all duration-300 ease-out group hover-lift">
                   <img 
-                    src="https://images.unsplash.com/photo-1561361513-2d000a50f0dc?auto=format&fit=crop&q=80&w=1000" 
-                    alt="Temple Aarti" 
-                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    src="https://images.unsplash.com/photo-1583212292454-1fe6229603b7?auto=format&fit=crop&q=80&w=1200" 
+                    alt="Temple Aarti Ceremony" 
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                   />
                   <div className="absolute inset-0 bg-gradient-to-tr from-stone-900/50 via-stone-900/20 to-transparent" />
                   
@@ -221,7 +221,7 @@ export default async function Home() {
                   </div>
                   
                   {/* Enhanced Glass Card Overlay */}
-                  <div className="absolute bottom-6 left-6 right-6 p-6 rounded-2xl bg-white/95 backdrop-blur-xl border-2 border-white/60 shadow-2xl hover:shadow-3xl transition-all hover-lift animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+                  <div className="absolute bottom-6 left-6 right-6 p-6 rounded-2xl bg-white/95 backdrop-blur-xl border-2 border-white/60 shadow-2xl hover:shadow-3xl transition-all hover-lift animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
                     <div className="flex items-center gap-4">
                       <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-orange-500 via-amber-500 to-orange-600 flex items-center justify-center text-white text-3xl shadow-xl hover:scale-110 transition-transform">
                         🕉️
@@ -251,7 +251,7 @@ export default async function Home() {
 
                 {/* Enhanced Floating Decorative Elements */}
                 <div className="absolute -top-6 -right-6 w-32 h-32 bg-gradient-to-br from-orange-200/40 to-amber-200/20 rounded-full blur-3xl animate-pulse" />
-                <div className="absolute -bottom-6 -left-6 w-40 h-40 bg-gradient-to-br from-amber-200/30 to-yellow-200/15 rounded-full blur-3xl animate-pulse delay-1000" />
+                <div className="absolute -bottom-6 -left-6 w-40 h-40 bg-gradient-to-br from-amber-200/30 to-yellow-200/15 rounded-full blur-3xl animate-pulse delay-500" />
               </div>
             </div>
           </div>
@@ -263,7 +263,7 @@ export default async function Home() {
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
         
-        <AnimatedSection className="container px-4 mx-auto relative z-10" stagger={true} staggerDelay={150}>
+        <AnimatedSection className="container px-4 mx-auto relative z-10" stagger={true} staggerDelay={75}>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
               { icon: Users, value: "10k+", label: "Happy Devotees", color: "text-blue-600", bg: "bg-blue-50" },
@@ -273,15 +273,15 @@ export default async function Home() {
             ].map((stat, i) => (
               <div 
                 key={i}
-                className="group text-center p-8 rounded-3xl bg-white/80 backdrop-blur-sm border-2 border-stone-200/50 hover:border-primary/40 hover:shadow-2xl transition-all duration-500 relative overflow-hidden hover-lift"
+                className="group text-center p-8 rounded-3xl bg-white/80 backdrop-blur-sm border-2 border-stone-200/50 hover:border-primary/40 hover:shadow-2xl transition-all duration-300 relative overflow-hidden hover-lift"
               >
                 {/* Hover Effect */}
-                <div className={`absolute inset-0 ${stat.bg} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                <div className={`absolute inset-0 ${stat.bg} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
                 
-                <div className={`relative inline-flex p-4 rounded-2xl bg-gradient-to-br from-white to-stone-50 mb-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg ${stat.color}`}>
+                <div className={`relative inline-flex p-4 rounded-2xl bg-gradient-to-br from-white to-stone-50 mb-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg ${stat.color}`}>
                   <stat.icon className="h-7 w-7" />
                 </div>
-                <div className="relative text-4xl font-bold text-stone-900 mb-2 group-hover:scale-110 transition-transform duration-500">{stat.value}</div>
+                <div className="relative text-4xl font-bold text-stone-900 mb-2 group-hover:scale-110 transition-transform duration-300">{stat.value}</div>
                 <div className="relative text-sm text-stone-600 font-semibold">{stat.label}</div>
               </div>
             ))}
@@ -294,7 +294,7 @@ export default async function Home() {
         {/* Enhanced Background Effects */}
         <div className="absolute inset-0">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-orange-100/30 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-amber-100/20 rounded-full blur-3xl animate-pulse delay-1000" />
+          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-amber-100/20 rounded-full blur-3xl animate-pulse delay-500" />
         </div>
         <div className="absolute inset-0 opacity-[0.02] bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
         
@@ -315,7 +315,7 @@ export default async function Home() {
             </p>
           </AnimatedSection>
 
-          <AnimatedSection className="relative" stagger={true} staggerDelay={250}>
+          <AnimatedSection className="relative" stagger={true} staggerDelay={125}>
             {/* Enhanced Connection Line with Arrows (Desktop) */}
             <div className="hidden lg:block absolute top-32 left-[12%] right-[12%] h-1">
               <div className="relative h-full bg-gradient-to-r from-orange-200 via-amber-200 via-orange-300 to-amber-200 rounded-full">
@@ -350,7 +350,8 @@ export default async function Home() {
                   bgGradientTo: "to-orange-600",
                   iconBg: "from-orange-100",
                   iconColor: "text-orange-600",
-                  cardBg: "bg-gradient-to-br from-orange-50/50 to-white"
+                  cardBg: "bg-gradient-to-br from-orange-50/50 to-white",
+                  backgroundImage: "https://images.unsplash.com/photo-1561361513-2d000a50f0dc?auto=format&fit=crop&q=80&w=600"
                 },
                 {
                   step: "02",
@@ -369,7 +370,8 @@ export default async function Home() {
                   bgGradientTo: "to-blue-600",
                   iconBg: "from-blue-100",
                   iconColor: "text-blue-600",
-                  cardBg: "bg-gradient-to-br from-blue-50/50 to-white"
+                  cardBg: "bg-gradient-to-br from-blue-50/50 to-white",
+                  backgroundImage: "https://images.unsplash.com/photo-1583212292454-1fe6229603b7?auto=format&fit=crop&q=80&w=600"
                 },
                 {
                   step: "03",
@@ -388,7 +390,8 @@ export default async function Home() {
                   bgGradientTo: "to-green-600",
                   iconBg: "from-green-100",
                   iconColor: "text-green-600",
-                  cardBg: "bg-gradient-to-br from-green-50/50 to-white"
+                  cardBg: "bg-gradient-to-br from-green-50/50 to-white",
+                  backgroundImage: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&q=80&w=600"
                 },
                 {
                   step: "04",
@@ -407,27 +410,37 @@ export default async function Home() {
                   bgGradientTo: "to-amber-600",
                   iconBg: "from-amber-100",
                   iconColor: "text-amber-600",
-                  cardBg: "bg-gradient-to-br from-amber-50/50 to-white"
+                  cardBg: "bg-gradient-to-br from-amber-50/50 to-white",
+                  backgroundImage: "https://images.unsplash.com/photo-1603386329225-868b9f1c50ea?auto=format&fit=crop&q=80&w=600"
                 },
               ].map((step, i) => (
                 <Card 
                   key={i}
-                  className={`relative group border-2 border-stone-200/50 hover:border-primary/40 ${step.cardBg} shadow-xl hover:shadow-2xl transition-all duration-500 hover-lift overflow-hidden`}
+                  className={`relative group border-2 border-stone-200/50 hover:border-primary/40 ${step.cardBg} shadow-xl hover:shadow-2xl transition-all duration-300 hover-lift overflow-hidden`}
                 >
+                  {/* Background Image */}
+                  <div className="absolute inset-0 opacity-5 group-hover:opacity-10 transition-opacity duration-300">
+                    <img 
+                      src={step.backgroundImage} 
+                      alt={step.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  
                   {/* Decorative Corner */}
-                  <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${step.bgGradientFrom}/10 ${step.bgGradientTo}/5 rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                  <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${step.bgGradientFrom}/10 ${step.bgGradientTo}/5 rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
                   
                   <CardContent className="p-8 relative z-10">
                     {/* Step Number Circle - Larger */}
                     <div className="relative mx-auto mb-8">
                       <div className={`absolute inset-0 ${step.bgBlur} rounded-full blur-2xl group-hover:blur-3xl transition-all group-hover:scale-150 opacity-50`} />
-                      <div className={`relative w-24 h-24 rounded-full bg-gradient-to-br ${step.bgGradientFrom} ${step.bgGradientTo} flex items-center justify-center text-white text-3xl font-bold shadow-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 animate-glow-pulse`}>
+                      <div className={`relative w-24 h-24 rounded-full bg-gradient-to-br ${step.bgGradientFrom} ${step.bgGradientTo} flex items-center justify-center text-white text-3xl font-bold shadow-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 animate-glow-pulse`}>
                         {step.step}
                       </div>
                     </div>
                     
                     {/* Icon - Larger */}
-                    <div className={`relative w-20 h-20 bg-gradient-to-br ${step.iconBg} to-white rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:scale-110 group-hover:-rotate-6 transition-all duration-500 border-2 border-stone-100`}>
+                    <div className={`relative w-20 h-20 bg-gradient-to-br ${step.iconBg} to-white rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:scale-110 group-hover:-rotate-6 transition-all duration-300 border-2 border-stone-100`}>
                       <step.icon className={`h-10 w-10 ${step.iconColor}`} />
                     </div>
                     
@@ -455,7 +468,7 @@ export default async function Home() {
                   </CardContent>
                   
                   {/* Hover Glow Effect */}
-                  <div className={`absolute inset-0 ${step.bgBlur} opacity-0 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none`} />
+                  <div className={`absolute inset-0 ${step.bgBlur} opacity-0 group-hover:opacity-20 transition-opacity duration-300 pointer-events-none`} />
                 </Card>
               ))}
             </div>
@@ -523,7 +536,7 @@ export default async function Home() {
             </p>
           </div>
 
-          <AnimatedSection className="grid md:grid-cols-3 gap-8" stagger={true} staggerDelay={200}>
+          <AnimatedSection className="grid md:grid-cols-3 gap-8" stagger={true} staggerDelay={100}>
             {[
               {
                 icon: Shield,
@@ -531,7 +544,8 @@ export default async function Home() {
                 description: "Every temple and pandit is thoroughly vetted. We guarantee authentic rituals performed by certified priests.",
                 color: "orange",
                 gradientFrom: "from-orange-500",
-                gradientTo: "to-amber-500"
+                gradientTo: "to-amber-500",
+                backgroundImage: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&q=80&w=600"
               },
               {
                 icon: Video,
@@ -539,7 +553,8 @@ export default async function Home() {
                 description: "Watch your pooja being performed live in crystal-clear HD quality from the comfort of your home.",
                 color: "blue",
                 gradientFrom: "from-blue-500",
-                gradientTo: "to-cyan-500"
+                gradientTo: "to-cyan-500",
+                backgroundImage: "https://images.unsplash.com/photo-1603386329225-868b9f1c50ea?auto=format&fit=crop&q=80&w=600"
               },
               {
                 icon: Calendar,
@@ -547,29 +562,41 @@ export default async function Home() {
                 description: "Choose your preferred date and time. Reschedule easily if needed. We're here to accommodate your schedule.",
                 color: "green",
                 gradientFrom: "from-green-500",
-                gradientTo: "to-emerald-500"
+                gradientTo: "to-emerald-500",
+                backgroundImage: "https://images.unsplash.com/photo-1583212292454-1fe6229603b7?auto=format&fit=crop&q=80&w=600"
               },
             ].map((feature, i) => (
               <div 
                 key={i}
-                className="group relative p-8 rounded-3xl bg-gradient-to-br from-white to-stone-50 border-2 border-stone-200 hover:border-primary/30 hover:shadow-2xl transition-all duration-300 overflow-hidden"
+                className="group relative p-8 rounded-3xl bg-gradient-to-br from-white to-stone-50 border-2 border-stone-200 hover:border-primary/30 hover:shadow-2xl transition-all duration-200 overflow-hidden"
               >
+                {/* Background Image */}
+                <div className="absolute inset-0 opacity-5 group-hover:opacity-10 transition-opacity duration-200">
+                  <img 
+                    src={feature.backgroundImage} 
+                    alt={feature.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                
                 {/* Hover Gradient Effect */}
                 {feature.color === "orange" && (
-                  <div className="absolute inset-0 bg-gradient-to-br from-orange-100/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-orange-100/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
                 )}
                 {feature.color === "blue" && (
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-100/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-100/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
                 )}
                 {feature.color === "green" && (
-                  <div className="absolute inset-0 bg-gradient-to-br from-green-100/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-green-100/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
                 )}
                 
-                <div className={`relative w-16 h-16 bg-gradient-to-br ${feature.gradientFrom} ${feature.gradientTo} rounded-2xl shadow-lg flex items-center justify-center mx-auto mb-6 text-white group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}>
-                  <feature.icon className="h-8 w-8" />
+                <div className="relative z-10">
+                  <div className={`relative w-16 h-16 bg-gradient-to-br ${feature.gradientFrom} ${feature.gradientTo} rounded-2xl shadow-lg flex items-center justify-center mx-auto mb-6 text-white group-hover:scale-110 group-hover:rotate-3 transition-all duration-200`}>
+                    <feature.icon className="h-8 w-8" />
+                  </div>
+                  <h3 className="text-2xl font-bold mb-3 text-center group-hover:text-primary transition-colors">{feature.title}</h3>
+                  <p className="text-stone-600 text-center leading-relaxed">{feature.description}</p>
                 </div>
-                <h3 className="text-2xl font-bold mb-3 text-center group-hover:text-primary transition-colors">{feature.title}</h3>
-                <p className="text-stone-600 text-center leading-relaxed">{feature.description}</p>
                 
                 {/* Decorative Corner */}
                 {feature.color === "orange" && (
@@ -610,7 +637,7 @@ export default async function Home() {
               </Link>
             </div>
             
-            <AnimatedSection className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4" stagger={true} staggerDelay={100}>
+            <AnimatedSection className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4" stagger={true} staggerDelay={50}>
               {eventTypes.map((eventType: any) => {
                 const icons: Record<string, any> = {
                   'festivals': Sparkles,
@@ -620,11 +647,28 @@ export default async function Home() {
                   'monthly-rituals': Clock,
                   'special-occasions': Gift
                 }
+                const eventImages: Record<string, string> = {
+                  'festivals': 'https://images.unsplash.com/photo-1603386329225-868b9f1c50ea?auto=format&fit=crop&q=80&w=400',
+                  'life-events': 'https://images.unsplash.com/photo-1583212292454-1fe6229603b7?auto=format&fit=crop&q=80&w=400',
+                  'remedial': 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&q=80&w=400',
+                  'auspicious-days': 'https://images.unsplash.com/photo-1561361513-2d000a50f0dc?auto=format&fit=crop&q=80&w=400',
+                  'monthly-rituals': 'https://images.unsplash.com/photo-1603386329225-868b9f1c50ea?auto=format&fit=crop&q=80&w=400',
+                  'special-occasions': 'https://images.unsplash.com/photo-1583212292454-1fe6229603b7?auto=format&fit=crop&q=80&w=400'
+                }
                 const Icon = icons[eventType.slug] || Sparkles
+                const eventImage = eventImages[eventType.slug] || 'https://images.unsplash.com/photo-1583212292454-1fe6229603b7?auto=format&fit=crop&q=80&w=400'
                 return (
                   <Link key={eventType.id} href={`/poojas?type=${eventType.slug}`}>
-                    <Card className="group hover:shadow-xl transition-all duration-300 border-2 border-stone-200 hover:border-primary/30 cursor-pointer h-full">
-                      <CardContent className="p-6 text-center">
+                    <Card className="group hover:shadow-xl transition-all duration-200 border-2 border-stone-200 hover:border-primary/30 cursor-pointer h-full overflow-hidden relative">
+                      {/* Background Image */}
+                      <div className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity duration-200">
+                        <img 
+                          src={eventImage} 
+                          alt={eventType.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <CardContent className="p-6 text-center relative z-10">
                         <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-primary/10 to-orange-50 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all">
                           <Icon className="h-8 w-8 text-primary" />
                         </div>
@@ -669,7 +713,7 @@ export default async function Home() {
               </Link>
             </div>
             
-            <AnimatedSection className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" stagger={true} staggerDelay={150}>
+            <AnimatedSection className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" stagger={true} staggerDelay={75}>
               {featuredPandits.map((pandit: any) => (
                 <PanditCard 
                   key={pandit.id} 
@@ -734,11 +778,11 @@ export default async function Home() {
             </p>
           </div>
 
-          <AnimatedSection className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto" stagger={true} staggerDelay={100}>
+          <AnimatedSection className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto" stagger={true} staggerDelay={50}>
             {faqs.map((faq, i) => (
               <div 
                 key={i}
-                className="group p-6 rounded-2xl bg-white border-2 border-stone-200 hover:border-primary/30 hover:shadow-xl transition-all duration-500 hover-lift"
+                className="group p-6 rounded-2xl bg-white border-2 border-stone-200 hover:border-primary/30 hover:shadow-xl transition-all duration-300 hover-lift"
               >
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-orange-100 to-amber-100 flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -764,8 +808,8 @@ export default async function Home() {
         {/* Enhanced Animated Background */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-amber-300/20 rounded-full blur-3xl animate-pulse delay-1000" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-orange-400/10 rounded-full blur-3xl animate-pulse delay-2000" />
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-amber-300/20 rounded-full blur-3xl animate-pulse delay-500" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-orange-400/10 rounded-full blur-3xl animate-pulse delay-1000" />
         </div>
         
         {/* Pattern Overlay */}
@@ -778,7 +822,7 @@ export default async function Home() {
               Join Our Growing Community
             </div>
             
-            <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 tracking-tight leading-tight animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 tracking-tight leading-tight animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
               Your spiritual journey
               <br />
               <span className="text-amber-200 bg-gradient-to-r from-amber-200 via-yellow-200 to-amber-200 bg-clip-text text-transparent animate-gradient">
@@ -786,15 +830,15 @@ export default async function Home() {
               </span>
             </h2>
             
-            <p className="text-orange-50 text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+            <p className="text-orange-50 text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
               Join thousands of devotees who trust PoojaNow for their daily prayers, 
               special occasions, and spiritual consultations. Experience the divine from anywhere.
             </p>
             
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
               <Link href="/login?tab=signup">
                 <Button size="lg" className="group relative h-16 px-12 rounded-full bg-white text-orange-600 hover:bg-stone-100 font-bold text-lg shadow-2xl hover:shadow-3xl transition-all hover:scale-110 hover:-translate-y-2 overflow-hidden animate-glow-pulse">
-                  <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+                  <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500" />
                   <Sparkles className="mr-2 h-5 w-5 group-hover:rotate-12 transition-transform" />
                   Get Started Free
                   <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
@@ -808,7 +852,7 @@ export default async function Home() {
             </div>
 
             {/* Enhanced Trust Badges */}
-            <AnimatedSection className="flex flex-wrap items-center justify-center gap-8 text-white/90" stagger={true} staggerDelay={100}>
+            <AnimatedSection className="flex flex-wrap items-center justify-center gap-8 text-white/90" stagger={true} staggerDelay={50}>
               <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 hover:scale-110 transition-all duration-300">
                 <CheckCircle2 className="h-5 w-5 text-green-300" />
                 <span className="text-sm font-medium">No Credit Card Required</span>

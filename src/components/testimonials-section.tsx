@@ -8,21 +8,24 @@ const testimonials = [
     location: "Bangalore",
     text: "I booked a Rudrabhishek pooja at Kashi Vishwanath through PoojaNow. The experience was divine. The video quality was excellent and the pandit ji was very knowledgeable.",
     rating: 5,
-    avatar: "RK"
+    avatar: "RK",
+    avatarImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200"
   },
   {
     name: "Priya Sharma",
     location: "USA",
     text: "Living abroad, I missed visiting temples on special occasions. PoojaNow made it possible to offer prayers at Somnath on my birthday. Truly grateful.",
     rating: 5,
-    avatar: "PS"
+    avatar: "PS",
+    avatarImage: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200"
   },
   {
     name: "Amit Patel",
     location: "Mumbai",
     text: "Very professional service. The booking process was smooth and I received the prasad within 3 days. Highly recommended for busy professionals.",
     rating: 4,
-    avatar: "AP"
+    avatar: "AP",
+    avatarImage: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=200"
   }
 ]
 
@@ -52,6 +55,7 @@ export function TestimonialsSection() {
                         </p>
                         <div className="flex items-center gap-4">
                             <Avatar className="h-10 w-10 border border-stone-200 bg-orange-50">
+                                <AvatarImage src={t.avatarImage} alt={t.name} />
                                 <AvatarFallback className="text-orange-700 font-medium">{t.avatar}</AvatarFallback>
                             </Avatar>
                             <div>

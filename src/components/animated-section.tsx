@@ -51,7 +51,7 @@ export function AnimatedSection({
     return (
       <div
         ref={ref}
-        className={`${className} ${isVisible ? "opacity-100" : "opacity-0"} transition-opacity duration-1000`}
+        className={`${className} ${isVisible ? "opacity-100" : "opacity-0"} transition-opacity duration-500`}
       >
         {childrenArray.map((child, index) => (
           <div
@@ -72,7 +72,7 @@ export function AnimatedSection({
   return (
     <div
       ref={ref}
-      className={`${className} ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"} transition-all duration-1000 ease-out`}
+      className={`${className} ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"} transition-all duration-500 ease-out`}
     >
       {children}
     </div>
