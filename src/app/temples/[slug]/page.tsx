@@ -70,11 +70,11 @@ export default async function TempleDetailPage({ params }: { params: { slug: str
           <section>
             <h2 className="text-2xl font-bold mb-4">Services & Poojas</h2>
             <div className="grid gap-4 sm:grid-cols-2">
-              {temple.services?.filter((s: any) => s.status === 'published').map((service: any) => (
+              {temple.services?.filter((s: any) => s.status === 'published' && s.is_active_single_pooja === true).map((service: any) => (
                 <ServiceCard key={service.id} service={service} templeId={temple.id} />
               ))}
-              {(!temple.services || temple.services.length === 0) && (
-                 <p className="text-muted-foreground">No services currently listed for this temple.</p>
+              {(!temple.services || temple.services.filter((s: any) => s.status === 'published' && s.is_active_single_pooja === true).length === 0) && (
+                 <p className="text-muted-foreground">No services currently available for booking. We are focusing on perfecting one pooja at a time.</p>
               )}
             </div>
           </section>

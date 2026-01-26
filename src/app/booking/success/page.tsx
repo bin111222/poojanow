@@ -5,7 +5,7 @@ import { CheckCircle2, Calendar, ArrowRight } from "lucide-react"
 export default function BookingSuccessPage({
   searchParams,
 }: {
-  searchParams: { bookingId: string }
+  searchParams: { bookingId?: string; payment_id?: string }
 }) {
   return (
     <div className="min-h-screen bg-stone-50 flex items-center justify-center p-4">

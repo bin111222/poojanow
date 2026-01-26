@@ -5,7 +5,8 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { completeBooking } from "../../actions"
-import { CheckCircle2, Clock, MapPin, User, Upload } from "lucide-react"
+import { ProofUploadWrapper } from "@/components/proof-upload-wrapper"
+import { CheckCircle2, Clock, MapPin, User, AlertCircle } from "lucide-react"
 
 export default async function PanditBookingDetailPage({ params }: { params: { id: string } }) {
   const supabase = createClient()
@@ -17,11 +18,15 @@ export default async function PanditBookingDetailPage({ params }: { params: { id
       *,
       services (title, description, duration_minutes),
       temples (name, address, city, state),
-      profiles:user_id (full_name, email, phone)
+      profiles:user_id (full_name, email, phone),
+      booking_proofs (id, status, created_at)
     `)
     .eq("id", params.id)
     .eq("pandit_id", user!.id)
     .single()
+
+  // Get proof count
+  const proofCount = booking?.booking_proofs?.filter((p: any) => p.status === 'uploaded' || p.status === 'approved').length || 0
 
   if (!booking) {
     notFound()
@@ -76,19 +81,40 @@ export default async function PanditBookingDetailPage({ params }: { params: { id
               </div>
             </div>
             
-            <div className="pt-4 border-t">
-                <div className="flex justify-between mb-2">
-                    <span className="text-muted-foreground">Date:</span>
-                    <span className="font-medium">
-                        {booking.scheduled_at ? format(new Date(booking.scheduled_at), "PPP") : "TBD"}
-                    </span>
-                </div>
-                <div className="flex justify-between">
-                    <span className="text-muted-foreground">Time:</span>
-                    <span className="font-medium">
-                        {booking.scheduled_at ? format(new Date(booking.scheduled_at), "p") : "TBD"}
-                    </span>
-                </div>
+            <div className="pt-4 border-t space-y-2">
+                {booking.scheduled_start && booking.scheduled_end ? (
+                  <>
+                    <div className="flex justify-between">
+                        <span className="text-muted-foreground">Scheduled Window:</span>
+                        <span className="font-medium text-right">
+                            {format(new Date(booking.scheduled_start), "PPP p")}
+                        </span>
+                    </div>
+                    <div className="flex justify-between">
+                        <span className="text-muted-foreground">End Time:</span>
+                        <span className="font-medium">
+                            {format(new Date(booking.scheduled_end), "p")}
+                        </span>
+                    </div>
+                  </>
+                ) : booking.scheduled_at ? (
+                  <>
+                    <div className="flex justify-between mb-2">
+                        <span className="text-muted-foreground">Date:</span>
+                        <span className="font-medium">
+                            {format(new Date(booking.scheduled_at), "PPP")}
+                        </span>
+                    </div>
+                    <div className="flex justify-between">
+                        <span className="text-muted-foreground">Time:</span>
+                        <span className="font-medium">
+                            {format(new Date(booking.scheduled_at), "p")}
+                        </span>
+                    </div>
+                  </>
+                ) : (
+                  <div className="text-muted-foreground">Not Scheduled</div>
+                )}
             </div>
           </CardContent>
         </Card>
@@ -98,25 +124,41 @@ export default async function PanditBookingDetailPage({ params }: { params: { id
                 <CardHeader>
                     <CardTitle>Actions</CardTitle>
                 </CardHeader>
-                <CardContent>
-                    <form action={completeBooking} className="flex flex-col sm:flex-row gap-4 items-end">
-                        <input type="hidden" name="bookingId" value={booking.id} />
-                        
-                        <div className="w-full sm:w-auto flex-1">
-                            <label className="block text-sm font-medium mb-2">Upload Proof (Photo/Video)</label>
-                            <div className="border-2 border-dashed rounded-md p-6 flex flex-col items-center justify-center text-muted-foreground hover:bg-muted/50 transition-colors cursor-pointer">
-                                <Upload className="h-8 w-8 mb-2" />
-                                <span className="text-sm">Click to upload proof</span>
-                                <input type="file" className="hidden" /> 
-                                {/* Note: Real file upload requires client component + storage logic. 
-                                    For this demo, clicking "Complete" simulates it. */}
-                            </div>
-                        </div>
+                <CardContent className="space-y-4">
+                    <div>
+                        <label className="block text-sm font-medium mb-2">Upload Proof (Photo/Video)</label>
+                        <p className="text-xs text-muted-foreground mb-3">
+                            Minimum 1 proof required before completion. Upload photos or videos of the pooja being performed.
+                        </p>
+                        <ProofUploadWrapper bookingId={booking.id} />
+                        {proofCount > 0 && (
+                            <p className="text-sm text-green-600 mt-2 flex items-center gap-1">
+                                <CheckCircle2 className="h-4 w-4" />
+                                {proofCount} proof{proofCount > 1 ? 's' : ''} uploaded
+                            </p>
+                        )}
+                    </div>
 
-                        <Button type="submit" className="w-full sm:w-auto bg-green-600 hover:bg-green-700">
+                    <form action={completeBooking}>
+                        <input type="hidden" name="bookingId" value={booking.id} />
+                        <Button 
+                            type="submit" 
+                            className="w-full bg-green-600 hover:bg-green-700"
+                            disabled={proofCount < 1}
+                        >
                             <CheckCircle2 className="mr-2 h-4 w-4" />
-                            Mark as Completed
+                            {proofCount < 1 ? (
+                                <>Upload proof first to complete</>
+                            ) : (
+                                <>Mark as Completed</>
+                            )}
                         </Button>
+                        {proofCount < 1 && (
+                            <p className="text-xs text-amber-600 mt-2 flex items-center gap-1">
+                                <AlertCircle className="h-3 w-3" />
+                                At least 1 proof photo is required
+                            </p>
+                        )}
                     </form>
                 </CardContent>
             </Card>

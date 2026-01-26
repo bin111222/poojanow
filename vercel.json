@@ -1,0 +1,9 @@
+{
+  "crons": [
+    {
+      "path": "/api/ops/check-sla-breaches",
+      "schedule": "0 * * * *"
+    }
+  ]
+}
+

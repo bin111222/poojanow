@@ -76,7 +76,7 @@ export default async function Home() {
     <div className="flex flex-col min-h-screen">
       
       {/* --- ULTRA ENHANCED HERO SECTION --- */}
-      <section className="relative pt-32 pb-24 lg:pt-48 lg:pb-40 overflow-hidden">
+      <section className="relative pt-8 pb-12 lg:pt-16 lg:pb-20 overflow-hidden">
         {/* Enhanced Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-20 left-10 w-72 h-72 bg-orange-200/20 rounded-full blur-3xl animate-pulse" />

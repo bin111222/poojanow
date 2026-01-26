@@ -8,14 +8,27 @@ export default async function PanditsPage() {
   const supabase = createClient()
   
   // Query pandit_profiles first
+  // Show published pandits (verification is optional for now)
   const { data: pandits, error: panditsError } = await supabase
     .from("pandit_profiles")
     .select("*")
     .eq("profile_status", "published")
-    .eq("verification_status", "verified")
+    // Don't filter by verification_status - show all published pandits
+    // RLS policy allows viewing published pandits regardless of verification status
 
   if (panditsError) {
     console.error("Error fetching pandits:", panditsError)
+    console.error("Error details:", JSON.stringify(panditsError, null, 2))
+  }
+
+  // Debug: Log what we found
+  console.log("Pandits found:", pandits?.length || 0)
+  if (pandits && pandits.length > 0) {
+    console.log("Sample pandit:", {
+      id: pandits[0].id,
+      profile_status: pandits[0].profile_status,
+      verification_status: pandits[0].verification_status
+    })
   }
 
   // Get all profile IDs and fetch profiles separately
