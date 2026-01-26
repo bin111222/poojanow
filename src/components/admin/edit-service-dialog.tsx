@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { useFormState } from "react-dom"
+import { useFormState, useFormStatus } from "react-dom"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -35,6 +35,29 @@ import { useToast } from "@/hooks/use-toast"
 
 interface EditServiceDialogProps {
   service: any
+}
+
+function SubmitButton() {
+  const { pending } = useFormStatus()
+  return (
+    <Button 
+      type="submit" 
+      className="h-11 px-8 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white shadow-lg hover:shadow-xl transition-all rounded-xl font-semibold"
+      disabled={pending}
+    >
+      {pending ? (
+        <>
+          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          Saving...
+        </>
+      ) : (
+        <>
+          <Save className="mr-2 h-4 w-4" />
+          Save Changes
+        </>
+      )}
+    </Button>
+  )
 }
 
 export function EditServiceDialog({ service }: EditServiceDialogProps) {
@@ -402,23 +425,7 @@ export function EditServiceDialog({ service }: EditServiceDialogProps) {
                 >
                   Cancel
                 </Button>
-                <Button 
-                  type="submit" 
-                  className="h-11 px-8 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white shadow-lg hover:shadow-xl transition-all rounded-xl font-semibold"
-                  disabled={state?.loading}
-                >
-                  {state?.loading ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Saving...
-                    </>
-                  ) : (
-                    <>
-                      <Save className="mr-2 h-4 w-4" />
-                      Save Changes
-                    </>
-                  )}
-                </Button>
+                <SubmitButton />
               </div>
             </div>
           </form>
