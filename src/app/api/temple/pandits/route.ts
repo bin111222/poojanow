@@ -25,11 +25,14 @@ export async function GET() {
     }
 
     return NextResponse.json({
-      pandits: pandits?.map(p => ({
-        id: p.id,
-        full_name: p.profiles?.full_name || 'Unknown',
-        email: p.profiles?.email || ''
-      })) || []
+      pandits: pandits?.map(p => {
+        const profile = Array.isArray(p.profiles) ? p.profiles[0] : p.profiles
+        return {
+          id: p.id,
+          full_name: profile?.full_name || 'Unknown',
+          email: profile?.email || ''
+        }
+      }) || []
     })
   } catch (error) {
     console.error('Error fetching pandits:', error)
