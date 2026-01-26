@@ -29,3 +29,4 @@ USING (profile_status = 'published');
 -- WHERE profile_status = 'draft' 
 -- AND id IN (SELECT id FROM profiles WHERE role = 'pandit');
 
+

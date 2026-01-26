@@ -11,6 +11,7 @@ interface PanditProfile {
   state: string | null
   specialties: string[] | null
   profile_image_path: string | null
+  services?: Array<{ id: string; status: string; is_active_single_pooja?: boolean }>
 }
 
 export function PanditCard({ pandit }: { pandit: PanditProfile }) {
@@ -53,16 +54,37 @@ export function PanditCard({ pandit }: { pandit: PanditProfile }) {
       </div>
 
       <div className="mt-4 pt-4 border-t border-stone-100 flex gap-3">
-        <Link href={`/pandits/${pandit.id}`} className="flex-1">
-            <Button className="w-full bg-stone-900 hover:bg-primary text-white transition-colors rounded-full">
-                Book Now
-            </Button>
-        </Link>
-        <Link href={`/pandits/${pandit.id}`}>
-            <Button variant="outline" className="rounded-full border-stone-200 hover:bg-stone-50">
-                Profile
-            </Button>
-        </Link>
+        {/* Book Now - link to first available service */}
+        {(() => {
+          const activeService = pandit.services?.find((s: any) => 
+            s.status === 'published' && s.is_active_single_pooja === true
+          )
+          
+          if (activeService) {
+            return (
+              <>
+                <Link href={`/book/${activeService.id}?panditId=${pandit.id}`} className="flex-1">
+                  <Button className="w-full bg-primary hover:bg-primary/90 text-white rounded-full shadow-md hover:shadow-lg transition-all font-medium">
+                    Book Now
+                  </Button>
+                </Link>
+                <Link href={`/pandits/${pandit.id}`}>
+                  <Button variant="outline" className="rounded-full border-stone-200 bg-white text-stone-900 hover:bg-stone-100 hover:text-stone-900 shadow-sm hover:shadow-md transition-all">
+                    Profile
+                  </Button>
+                </Link>
+              </>
+            )
+          }
+          
+          return (
+            <Link href={`/pandits/${pandit.id}`} className="flex-1">
+              <Button className="w-full bg-primary hover:bg-primary/90 text-white rounded-full shadow-md hover:shadow-lg transition-all font-medium">
+                View Profile
+              </Button>
+            </Link>
+          )
+        })()}
       </div>
     </div>
   )

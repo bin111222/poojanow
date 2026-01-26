@@ -132,3 +132,4 @@ Ensure Supabase environment variables are configured:
 - `src/app/u/booking/[id]/page.tsx` - Post-pooja closure screen
 - `src/app/u/bookings/page.tsx` - Show scheduled window
 
+

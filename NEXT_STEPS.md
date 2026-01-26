@@ -139,3 +139,4 @@ Create a cron job or Supabase Edge Function to:
 
 The foundation is solid. Run the migrations, set up storage, and you can start testing the complete flow from booking to completion!
 
+

@@ -144,3 +144,4 @@ v_event_count   int := 100;
 - Check that `is_active_single_pooja = true` on services
 - Verify temple status is 'published'
 
+

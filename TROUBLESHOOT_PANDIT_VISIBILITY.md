@@ -124,3 +124,4 @@ If pandits still don't show, check:
 - Are there corresponding `profiles` rows with `role = 'pandit'`?
 - Are there any RLS policy errors in Supabase logs?
 
+

@@ -1,6 +1,6 @@
 import { createClient } from "@/utils/supabase/server"
 import { notFound } from "next/navigation"
-import { MapPin, CheckCircle2 } from "lucide-react"
+import { MapPin, CheckCircle2, MessageCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ServiceCard } from "@/components/service-card"
 import Image from "next/image"
@@ -84,8 +84,36 @@ export default async function TempleDetailPage({ params }: { params: { slug: str
         <div className="space-y-6">
            <div className="rounded-lg border bg-card p-6 shadow-sm">
              <h3 className="font-semibold mb-4">Quick Actions</h3>
-             <Button className="w-full mb-2">Donate</Button>
-             <Button variant="outline" className="w-full">Contact Temple</Button>
+             {temple.address && (
+               <a href={`https://maps.google.com/?q=${encodeURIComponent(temple.address)}`} target="_blank" rel="noopener noreferrer" className="block mb-3">
+                 <Button className="w-full bg-primary hover:bg-primary/90 text-white rounded-full shadow-md hover:shadow-lg transition-all">
+                   <MapPin className="mr-2 h-4 w-4" /> Get Directions
+                 </Button>
+               </a>
+             )}
+             <a href="#contact" className="block">
+               <Button variant="outline" className="w-full rounded-full border-stone-200 bg-white text-stone-900 hover:bg-stone-100 hover:text-stone-900 shadow-sm hover:shadow-md transition-all">
+                 <MessageCircle className="mr-2 h-4 w-4" /> Contact Temple
+               </Button>
+             </a>
+           </div>
+           
+           {/* Contact Information */}
+           <div id="contact" className="rounded-lg border bg-card p-6 shadow-sm">
+             <h3 className="font-semibold mb-4">Contact Information</h3>
+             {temple.address && (
+               <div className="space-y-2 text-sm text-muted-foreground">
+                 <p><strong>Address:</strong></p>
+                 <p>{temple.address}</p>
+               </div>
+             )}
+             <div className="mt-4">
+               <a href={`https://maps.google.com/?q=${encodeURIComponent(temple.name + ', ' + temple.city + ', ' + temple.state)}`} target="_blank" rel="noopener noreferrer">
+                 <Button variant="outline" size="sm" className="w-full rounded-full border-stone-200 bg-white text-stone-900 hover:bg-stone-100 hover:text-stone-900 shadow-sm hover:shadow-md transition-all">
+                   <MapPin className="mr-2 h-3 w-3" /> View on Map
+                 </Button>
+               </a>
+             </div>
            </div>
         </div>
       </div>

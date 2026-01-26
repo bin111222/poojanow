@@ -153,3 +153,4 @@ It should work now! 🎉
 2. Check the profile exists: `SELECT * FROM profiles WHERE email = 'admin@test.com';`
 3. Verify the role: `SELECT email, role FROM profiles WHERE email = 'admin@test.com';`
 
+

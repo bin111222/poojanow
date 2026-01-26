@@ -41,7 +41,9 @@ export function ServiceCard({ service, panditId, templeId }: { service: Service,
       </CardContent>
       <CardFooter>
         <Link href={bookingUrl} className="w-full">
-          <Button className="w-full">Book Now</Button>
+          <Button className="w-full bg-primary hover:bg-primary/90 text-white rounded-full shadow-md hover:shadow-lg transition-all">
+            Book Now
+          </Button>
         </Link>
       </CardFooter>
     </Card>

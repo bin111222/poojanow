@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { useFormState } from "react-dom"
 import { useRouter } from "next/navigation"
 import { createBooking } from "../actions"
+import { PackageSelector } from "@/components/package-selector"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
@@ -25,13 +26,35 @@ const initialState = {
   error: '',
 }
 
-export function BookingForm({ service }: { service: any }) {
+interface BookingFormProps {
+  service: any
+  packages?: any[]
+  onPackageChange?: (packageId: string | null, packagePrice: number, packageName: string | null) => void
+}
+
+export function BookingForm({ service, packages = [], onPackageChange }: BookingFormProps) {
   const [date, setDate] = useState<Date>()
   const [time, setTime] = useState<string>('')
+  const [selectedPackageId, setSelectedPackageId] = useState<string | null>(
+    packages.length > 0 ? packages.find(p => p.is_recommended)?.id || packages[0]?.id || null : null
+  )
   const [loading, setLoading] = useState(false)
   const [state, formAction] = useFormState(createBooking, initialState)
   const router = useRouter()
   const { toast } = useToast()
+
+  // Calculate total price based on selected package
+  const selectedPackage = packages.find(p => p.id === selectedPackageId)
+  const totalPrice = selectedPackage ? selectedPackage.base_price_inr : service.base_price_inr
+
+  // Notify parent of package change
+  useEffect(() => {
+    if (onPackageChange && selectedPackageId) {
+      onPackageChange(selectedPackageId, totalPrice, selectedPackage?.package_name || null)
+    } else if (onPackageChange) {
+      onPackageChange(null, service.base_price_inr, null)
+    }
+  }, [selectedPackageId, totalPrice, selectedPackage, onPackageChange, service.base_price_inr])
 
   // Load Razorpay script
   useEffect(() => {
@@ -71,7 +94,7 @@ export function BookingForm({ service }: { service: any }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           bookingId,
-          amount: service.base_price_inr,
+          amount: totalPrice,
         }),
       })
 
@@ -157,8 +180,21 @@ export function BookingForm({ service }: { service: any }) {
   return (
     <form onSubmit={handleSubmit} className="space-y-6 bg-white p-6 rounded-lg border shadow-lg">
       <input type="hidden" name="serviceId" value={service.id} />
-      <input type="hidden" name="price" value={service.base_price_inr} />
+      <input type="hidden" name="price" value={totalPrice} />
+      <input type="hidden" name="packageId" value={selectedPackageId || ''} />
       <input type="hidden" name="durationMinutes" value={service.duration_minutes || 45} />
+      
+      {/* Package Selection */}
+      {packages.length > 0 && (
+        <div className="pb-4 border-b">
+          <PackageSelector
+            packages={packages}
+            selectedPackageId={selectedPackageId}
+            onSelectPackage={setSelectedPackageId}
+            serviceBasePrice={service.base_price_inr}
+          />
+        </div>
+      )}
       
       {/* Date Selection */}
       <div className="space-y-2">
@@ -221,7 +257,7 @@ export function BookingForm({ service }: { service: any }) {
         <p className="text-sm text-red-500">{state.error}</p>
       )}
 
-      <Button type="submit" className="w-full" disabled={!date || !time || loading}>
+      <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-white rounded-full shadow-md hover:shadow-lg transition-all font-medium h-12" disabled={!date || !time || loading}>
         {loading ? (
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />

@@ -51,7 +51,7 @@ export function CompleteBookingDialog({ bookingId }: { bookingId: string }) {
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <Button variant="outline" onClick={() => setOpen(false)}>
+          <Button variant="outline" onClick={() => setOpen(false)} className="border-stone-200 bg-white text-stone-900 hover:bg-stone-100 hover:text-stone-900">
             Cancel
           </Button>
           <Button onClick={handleComplete} disabled={loading} className="bg-green-600 hover:bg-green-700">

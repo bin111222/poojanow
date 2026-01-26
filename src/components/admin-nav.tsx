@@ -6,7 +6,8 @@ import {
   Calendar, 
   Settings, 
   LogOut,
-  ShieldAlert
+  ShieldAlert,
+  Database
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { signout } from "@/app/auth/actions"
@@ -18,6 +19,12 @@ export function AdminNav() {
         <Button variant="ghost" className="w-full justify-start">
           <LayoutDashboard className="mr-2 h-4 w-4" />
           Overview
+        </Button>
+      </Link>
+      <Link href="/admin/data">
+        <Button variant="ghost" className="w-full justify-start bg-primary/10 text-primary hover:bg-primary/20">
+          <Database className="mr-2 h-4 w-4" />
+          Data Management
         </Button>
       </Link>
       <Link href="/admin/temples">

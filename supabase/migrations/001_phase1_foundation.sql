@@ -77,3 +77,4 @@ UPDATE services
 SET is_active_single_pooja = false
 WHERE title NOT ILIKE '%rudrabhishek%';
 
+

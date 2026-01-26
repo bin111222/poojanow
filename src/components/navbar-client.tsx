@@ -21,7 +21,8 @@ import {
   Radio, 
   Calendar, 
   LogOut,
-  ChevronDown
+  ChevronDown,
+  Sparkles
 } from "lucide-react"
 import { signout } from "@/app/auth/actions"
 import { cn } from "@/lib/utils"
@@ -54,6 +55,7 @@ export function NavbarClient({ user }: NavbarClientProps) {
   const navItems = [
     { name: "Temples", href: "/temples", icon: Building2 },
     { name: "Pandits", href: "/pandits", icon: Users },
+    { name: "Pooja by Event", href: "/poojas", icon: Sparkles },
     { name: "Live", href: "/live", icon: Radio },
   ]
 

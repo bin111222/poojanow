@@ -19,6 +19,7 @@ export async function createBooking(prevState: any, formData: FormData) {
   const time = formData.get('time') as string // HH:mm
   const notes = formData.get('notes') as string
   const price = formData.get('price') as string
+  const packageId = formData.get('packageId') as string
   const durationMinutes = formData.get('durationMinutes') as string
   
   // Combine date and time into timestamp
@@ -38,11 +39,16 @@ export async function createBooking(prevState: any, formData: FormData) {
   // Verify service is the active single pooja (Phase 1 requirement)
   const { data: service } = await supabase
     .from('services')
-    .select('id, is_active_single_pooja, status')
+    .select('id, is_active_single_pooja, status, event_category')
     .eq('id', serviceId)
     .single()
   
-  if (!service || !service.is_active_single_pooja || service.status !== 'published') {
+  // Allow booking if: active single pooja OR event-based pooja
+  const isBookable = service && 
+    service.status === 'published' && 
+    (service.is_active_single_pooja === true || service.event_category === 'event_based')
+  
+  if (!isBookable) {
     return { error: 'This service is not available for booking at this time.' }
   }
 
@@ -52,6 +58,7 @@ export async function createBooking(prevState: any, formData: FormData) {
     .insert({
       user_id: user.id,
       service_id: serviceId,
+      package_id: packageId || null,
       scheduled_at: scheduledStart, // Keep for backward compatibility
       scheduled_start: scheduledStart,
       scheduled_end: scheduledEnd,

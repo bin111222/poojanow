@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Force dialog centering */
+[data-radix-dialog-content] {
+  position: fixed !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  margin: 0 !important;
+}
+
 @layer base {
   :root {
     /* Premium Spiritual Palette */
@@ -128,5 +137,185 @@
 
   .delay-3000 {
     animation-delay: 3s;
+  }
+
+  /* Scroll Reveal Animation */
+  .animate-in {
+    opacity: 1 !important;
+    transform: translateY(0) translateX(0) !important;
+  }
+
+  /* Stagger Animation */
+  @keyframes stagger {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-stagger {
+    animation: stagger 0.6s ease-out forwards;
+  }
+
+  /* Smooth Scale Animation */
+  @keyframes scale-in {
+    0% {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .animate-scale-in {
+    animation: scale-in 0.6s ease-out forwards;
+  }
+
+  /* Slide In From Right */
+  @keyframes slide-in-right {
+    0% {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .animate-slide-in-right {
+    animation: slide-in-right 0.8s ease-out forwards;
+  }
+
+  /* Bounce In */
+  @keyframes bounce-in {
+    0% {
+      opacity: 0;
+      transform: scale(0.3) translateY(-50px);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.05) translateY(0);
+    }
+    70% {
+      transform: scale(0.9);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  .animate-bounce-in {
+    animation: bounce-in 0.8s ease-out forwards;
+  }
+
+  /* Fade In Up */
+  @keyframes fade-in-up {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.8s ease-out forwards;
+  }
+
+  /* Rotate In */
+  @keyframes rotate-in {
+    0% {
+      opacity: 0;
+      transform: rotate(-10deg) scale(0.9);
+    }
+    100% {
+      opacity: 1;
+      transform: rotate(0deg) scale(1);
+    }
+  }
+
+  .animate-rotate-in {
+    animation: rotate-in 0.6s ease-out forwards;
+  }
+
+  /* Glow Pulse */
+  @keyframes glow-pulse {
+    0%, 100% {
+      box-shadow: 0 0 20px rgba(234, 88, 12, 0.3);
+    }
+    50% {
+      box-shadow: 0 0 40px rgba(234, 88, 12, 0.6);
+    }
+  }
+
+  .animate-glow-pulse {
+    animation: glow-pulse 2s ease-in-out infinite;
+  }
+
+  /* Shimmer Effect */
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+
+  .animate-shimmer {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.4),
+      transparent
+    );
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite;
+  }
+
+  /* Parallax Effect */
+  .parallax-slow {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+
+  /* Hover Lift */
+  .hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Magnetic Effect */
+  .magnetic {
+    transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  /* Text Reveal */
+  @keyframes text-reveal {
+    0% {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-text-reveal {
+    animation: text-reveal 0.8s ease-out forwards;
   }
 }

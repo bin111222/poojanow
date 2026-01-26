@@ -69,7 +69,7 @@ export function AssignPanditDialog({ bookingId }: { bookingId: string }) {
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <Button variant="outline" size="sm">
+        <Button variant="outline" size="sm" className="border-stone-200 bg-white text-stone-900 hover:bg-stone-100 hover:text-stone-900">
           <User className="h-4 w-4 mr-1" />
           Assign
         </Button>
@@ -96,7 +96,7 @@ export function AssignPanditDialog({ bookingId }: { bookingId: string }) {
           </Select>
         </div>
         <DialogFooter>
-          <Button variant="outline" onClick={() => setOpen(false)}>
+          <Button variant="outline" onClick={() => setOpen(false)} className="border-stone-200 bg-white text-stone-900 hover:bg-stone-100 hover:text-stone-900">
             Cancel
           </Button>
           <Button onClick={handleAssign} disabled={!panditId || loading}>

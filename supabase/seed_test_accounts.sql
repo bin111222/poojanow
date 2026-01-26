@@ -175,3 +175,4 @@ $$ LANGUAGE plpgsql;
 -- 1. Create users in Supabase Auth Dashboard first
 -- 2. Run: SELECT create_test_accounts();
 
+

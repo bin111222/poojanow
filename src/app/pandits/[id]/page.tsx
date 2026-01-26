@@ -8,7 +8,6 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import Link from "next/link"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 export default async function PanditDetailPage({ params }: { params: Promise<{ id: string }> | { id: string } }) {
   const supabase = createClient()
@@ -177,14 +176,16 @@ export default async function PanditDetailPage({ params }: { params: Promise<{ i
               <div className="flex flex-wrap gap-3 pt-4">
                 {activeServices.length > 0 && (
                   <Link href={`/book/${activeServices[0].id}?panditId=${pandit.id}`}>
-                    <Button size="lg" className="bg-primary hover:bg-primary/90 text-white rounded-full px-8">
+                    <Button size="lg" className="bg-primary hover:bg-primary/90 text-white rounded-full px-8 shadow-lg hover:shadow-xl transition-all">
                       <Calendar className="mr-2 h-4 w-4" /> Book Pooja
                     </Button>
                   </Link>
                 )}
-                <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10 rounded-full px-8">
-                  <MessageCircle className="mr-2 h-4 w-4" /> Contact
-                </Button>
+                <a href="#contact" className="inline-block">
+                  <Button size="lg" variant="outline" className="border-2 border-white/40 bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 hover:border-white/60 rounded-full px-8 shadow-lg hover:shadow-xl transition-all font-medium">
+                    <MessageCircle className="mr-2 h-4 w-4" /> Contact
+                  </Button>
+                </a>
               </div>
                 </div>
             </div>
@@ -196,138 +197,148 @@ export default async function PanditDetailPage({ params }: { params: Promise<{ i
         <div className="grid gap-8 lg:grid-cols-3">
           {/* Main Content Column */}
           <div className="lg:col-span-2 space-y-8">
-            {/* Tabs for organized content */}
-            <Tabs defaultValue="about" className="w-full">
-              <TabsList className="grid w-full grid-cols-4">
-                <TabsTrigger value="about">About</TabsTrigger>
-                <TabsTrigger value="services">Services</TabsTrigger>
-                <TabsTrigger value="reviews">Reviews</TabsTrigger>
-                <TabsTrigger value="faq">FAQ</TabsTrigger>
-              </TabsList>
+            {/* Available Services - Prominent at top */}
+            {activeServices.length > 0 && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-2xl">Available Services</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    {activeServices.map((service: any) => (
+                      <ServiceCard key={service.id} service={service} panditId={pandit.id} />
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
 
-              {/* About Tab */}
-              <TabsContent value="about" className="space-y-6 mt-6">
-                {/* Bio/Experience */}
+            {/* About Section */}
+            {(pandit.bio || pandit.experience_description || pandit.lineage) && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-xl">
+                    <BookOpen className="h-5 w-5" />
+                    About
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {pandit.bio && (
+                    <div className="prose max-w-none">
+                      <p className="text-muted-foreground leading-relaxed text-base">{pandit.bio}</p>
+                    </div>
+                  )}
+                  {pandit.experience_description && (
+                    <div className="pt-4 border-t">
+                      <h4 className="font-semibold mb-2 text-stone-900">Experience</h4>
+                      <p className="text-muted-foreground leading-relaxed">{pandit.experience_description}</p>
+                    </div>
+                  )}
+                  {pandit.lineage && (
+                    <div className="pt-4 border-t">
+                      <h4 className="font-semibold mb-2 text-stone-900">Spiritual Lineage</h4>
+                      <p className="text-muted-foreground">{pandit.lineage}</p>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Qualifications & Education - Compact Grid */}
+            {(pandit.qualifications?.length > 0 || pandit.certifications?.length > 0 || pandit.education) && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-xl">
+                    <GraduationCap className="h-5 w-5" />
+                    Qualifications & Education
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {pandit.education && (
+                    <div>
+                      <h4 className="font-semibold mb-2 text-stone-900">Education</h4>
+                      <p className="text-muted-foreground">{pandit.education}</p>
+                    </div>
+                  )}
+                  {pandit.qualifications && pandit.qualifications.length > 0 && (
+                    <div className={pandit.education ? "pt-4 border-t" : ""}>
+                      <h4 className="font-semibold mb-3 text-stone-900">Qualifications</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {pandit.qualifications.map((qual: string, i: number) => (
+                          <Badge key={i} variant="outline" className="bg-stone-50">
+                            <Award className="h-3 w-3 mr-1" />
+                            {qual}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {pandit.certifications && pandit.certifications.length > 0 && (
+                    <div className="pt-4 border-t">
+                      <h4 className="font-semibold mb-2 text-stone-900">Certifications</h4>
+                      <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+                        {pandit.certifications.map((cert: string, i: number) => (
+                          <li key={i}>{cert}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Specializations & Languages - Side by Side */}
+            <div className="grid md:grid-cols-2 gap-6">
+              {(pandit.specialties?.length > 0 || pandit.pooja_types?.length > 0) && (
                 <Card>
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <BookOpen className="h-5 w-5" />
-                      About
+                    <CardTitle className="flex items-center gap-2 text-lg">
+                      <Sparkles className="h-5 w-5" />
+                      Specializations
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    {pandit.bio && (
-                      <div className="prose max-w-none">
-                        <p className="text-muted-foreground leading-relaxed">{pandit.bio}</p>
+                    {pandit.pooja_types && pandit.pooja_types.length > 0 && (
+                      <div>
+                        <h4 className="font-semibold mb-3 text-stone-900 text-sm">Pooja Types</h4>
+                        <div className="flex flex-wrap gap-2">
+                          {pandit.pooja_types.map((type: string, i: number) => (
+                            <Badge key={i} variant="secondary">
+                              {type}
+                            </Badge>
+                          ))}
+                        </div>
                       </div>
                     )}
-                    {pandit.experience_description && (
-                      <div>
-                        <h4 className="font-semibold mb-2">Experience</h4>
-                        <p className="text-muted-foreground leading-relaxed">{pandit.experience_description}</p>
-                      </div>
-                    )}
-                    {pandit.lineage && (
-                      <div>
-                        <h4 className="font-semibold mb-2">Spiritual Lineage</h4>
-                        <p className="text-muted-foreground">{pandit.lineage}</p>
+                    {pandit.specialties && pandit.specialties.length > 0 && (
+                      <div className={pandit.pooja_types?.length > 0 ? "pt-3 border-t" : ""}>
+                        <h4 className="font-semibold mb-3 text-stone-900 text-sm">Areas of Expertise</h4>
+                        <div className="flex flex-wrap gap-2">
+                          {pandit.specialties.map((spec: string, i: number) => (
+                            <Badge key={i} variant="outline">
+                              {spec}
+                            </Badge>
+                          ))}
+                        </div>
                       </div>
                     )}
                   </CardContent>
                 </Card>
-
-                {/* Qualifications */}
-                {(pandit.qualifications?.length > 0 || pandit.certifications?.length > 0 || pandit.education) && (
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="flex items-center gap-2">
-                        <GraduationCap className="h-5 w-5" />
-                        Qualifications & Education
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                      {pandit.education && (
-                        <div>
-                          <h4 className="font-semibold mb-2">Education</h4>
-                          <p className="text-muted-foreground">{pandit.education}</p>
-                        </div>
-                      )}
-                      {pandit.qualifications && pandit.qualifications.length > 0 && (
-                        <div>
-                          <h4 className="font-semibold mb-2">Qualifications</h4>
-                          <div className="flex flex-wrap gap-2">
-                            {pandit.qualifications.map((qual: string, i: number) => (
-                              <Badge key={i} variant="outline" className="bg-stone-50">
-                                <Award className="h-3 w-3 mr-1" />
-                                {qual}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                      {pandit.certifications && pandit.certifications.length > 0 && (
-                        <div>
-                          <h4 className="font-semibold mb-2">Certifications</h4>
-                          <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                            {pandit.certifications.map((cert: string, i: number) => (
-                              <li key={i}>{cert}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                    </CardContent>
-                  </Card>
-                )}
-
-                {/* Specializations */}
-                {(pandit.specialties?.length > 0 || pandit.pooja_types?.length > 0) && (
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="flex items-center gap-2">
-                        <Sparkles className="h-5 w-5" />
-                        Specializations
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      {pandit.pooja_types && pandit.pooja_types.length > 0 && (
-                        <div className="mb-4">
-                          <h4 className="font-semibold mb-3">Pooja Types</h4>
-                          <div className="flex flex-wrap gap-2">
-                            {pandit.pooja_types.map((type: string, i: number) => (
-                              <Badge key={i} variant="secondary">
-                                {type}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                      {pandit.specialties && pandit.specialties.length > 0 && (
-                        <div>
-                          <h4 className="font-semibold mb-3">Areas of Expertise</h4>
-                          <div className="flex flex-wrap gap-2">
-                            {pandit.specialties.map((spec: string, i: number) => (
-                              <Badge key={i} variant="outline">
-                                {spec}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </CardContent>
-                  </Card>
-                )}
-
-                {/* Languages & Service Areas */}
-                <div className="grid md:grid-cols-2 gap-6">
-                  {pandit.languages && pandit.languages.length > 0 && (
-                    <Card>
-                      <CardHeader>
-                        <CardTitle className="flex items-center gap-2 text-lg">
-                          <Languages className="h-5 w-5" />
-                          Languages
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
+              )}
+              
+              {/* Languages & Service Areas Combined */}
+              {(pandit.languages?.length > 0 || pandit.service_areas?.length > 0) && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-lg">
+                      <Languages className="h-5 w-5" />
+                      Languages & Service Areas
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    {pandit.languages && pandit.languages.length > 0 && (
+                      <div>
+                        <h4 className="font-semibold mb-3 text-stone-900 text-sm">Languages</h4>
                         <div className="flex flex-wrap gap-2">
                           {pandit.languages.map((lang: string, i: number) => (
                             <Badge key={i} variant="outline">
@@ -335,18 +346,14 @@ export default async function PanditDetailPage({ params }: { params: Promise<{ i
                             </Badge>
                           ))}
                         </div>
-                      </CardContent>
-                    </Card>
-                  )}
-                  {pandit.service_areas && pandit.service_areas.length > 0 && (
-                    <Card>
-                      <CardHeader>
-                        <CardTitle className="flex items-center gap-2 text-lg">
-                          <MapPin className="h-5 w-5" />
+                      </div>
+                    )}
+                    {pandit.service_areas && pandit.service_areas.length > 0 && (
+                      <div className={pandit.languages?.length > 0 ? "pt-3 border-t" : ""}>
+                        <h4 className="font-semibold mb-3 text-stone-900 text-sm flex items-center gap-2">
+                          <MapPin className="h-4 w-4" />
                           Service Areas
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
+                        </h4>
                         <div className="flex flex-wrap gap-2">
                           {pandit.service_areas.map((area: string, i: number) => (
                             <Badge key={i} variant="outline">
@@ -354,131 +361,103 @@ export default async function PanditDetailPage({ params }: { params: Promise<{ i
                             </Badge>
                           ))}
                         </div>
-                      </CardContent>
-                    </Card>
-                  )}
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              )}
             </div>
 
-                {/* Achievements */}
-                {pandit.achievements && pandit.achievements.length > 0 && (
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="flex items-center gap-2">
-                        <Award className="h-5 w-5" />
-                        Achievements
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <ul className="list-disc list-inside space-y-2 text-muted-foreground">
-                        {pandit.achievements.map((achievement: string, i: number) => (
-                          <li key={i}>{achievement}</li>
-                        ))}
-                      </ul>
-                    </CardContent>
-                  </Card>
+            {/* Achievements */}
+            {pandit.achievements && pandit.achievements.length > 0 && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-xl">
+                    <Award className="h-5 w-5" />
+                    Achievements
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="list-disc list-inside space-y-2 text-muted-foreground">
+                    {pandit.achievements.map((achievement: string, i: number) => (
+                      <li key={i}>{achievement}</li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Reviews Section */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-xl">
+                  <Star className="h-5 w-5" />
+                  Reviews & Testimonials
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {totalReviews > 0 ? (
+                  <div className="space-y-4">
+                    <div className="text-center py-6">
+                      <div className="flex items-center justify-center gap-2 mb-2">
+                        <Star className="h-8 w-8 fill-yellow-400 text-yellow-400" />
+                        <span className="text-3xl font-bold">{rating.toFixed(1)}</span>
+                      </div>
+                      <p className="text-muted-foreground">Based on {totalReviews} review{totalReviews !== 1 ? 's' : ''}</p>
+                    </div>
+                    <Separator />
+                    <p className="text-center text-muted-foreground py-6">
+                      Reviews feature coming soon. Check back later for customer testimonials.
+                    </p>
+                  </div>
+                ) : (
+                  <div className="text-center py-8">
+                    <Star className="h-12 w-12 text-muted-foreground mx-auto mb-4 opacity-50" />
+                    <p className="text-muted-foreground">No reviews yet. Be the first to book and review!</p>
+                  </div>
                 )}
-              </TabsContent>
+              </CardContent>
+            </Card>
 
-              {/* Services Tab */}
-              <TabsContent value="services" className="mt-6">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Available Services</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    {activeServices.length > 0 ? (
-            <div className="grid gap-4 sm:grid-cols-2">
-                        {activeServices.map((service: any) => (
-                <ServiceCard key={service.id} service={service} panditId={pandit.id} />
-              ))}
-                      </div>
-                    ) : (
-                      <div className="text-center py-12">
-                        <p className="text-muted-foreground">
-                          No services currently available for booking. We are focusing on perfecting one pooja at a time.
-                        </p>
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-              </TabsContent>
-
-              {/* Reviews Tab */}
-              <TabsContent value="reviews" className="mt-6">
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Star className="h-5 w-5" />
-                      Reviews & Testimonials
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    {totalReviews > 0 ? (
-                      <div className="space-y-4">
-                        <div className="text-center py-8">
-                          <div className="flex items-center justify-center gap-2 mb-2">
-                            <Star className="h-8 w-8 fill-yellow-400 text-yellow-400" />
-                            <span className="text-3xl font-bold">{rating.toFixed(1)}</span>
-                          </div>
-                          <p className="text-muted-foreground">Based on {totalReviews} review{totalReviews !== 1 ? 's' : ''}</p>
-                        </div>
-                        <Separator />
-                        <p className="text-center text-muted-foreground py-8">
-                          Reviews feature coming soon. Check back later for customer testimonials.
-                        </p>
-                      </div>
-                    ) : (
-                      <div className="text-center py-12">
-                        <Star className="h-12 w-12 text-muted-foreground mx-auto mb-4 opacity-50" />
-                        <p className="text-muted-foreground">No reviews yet. Be the first to book and review!</p>
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-              </TabsContent>
-
-              {/* FAQ Tab */}
-              <TabsContent value="faq" className="mt-6">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Frequently Asked Questions</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-6">
-                      <div>
-                        <h4 className="font-semibold mb-2">How do I book a pooja with this pandit?</h4>
-                        <p className="text-muted-foreground">
-                          Click the "Book Pooja" button above and select your preferred date and time. Complete the payment to confirm your booking.
-                        </p>
-                      </div>
-                      <Separator />
-                      <div>
-                        <h4 className="font-semibold mb-2">What is the response time?</h4>
-                        <p className="text-muted-foreground">
-                          {pandit.response_time || "The pandit typically responds within 24 hours of booking confirmation."}
-                        </p>
-                      </div>
-                      <Separator />
-                      <div>
-                        <h4 className="font-semibold mb-2">Can I get proof of the pooja?</h4>
-                        <p className="text-muted-foreground">
-                          Yes! After the pooja is completed, you will receive photos/videos as proof and a digital certificate.
-                        </p>
-                      </div>
-                      <Separator />
-                      <div>
-                        <h4 className="font-semibold mb-2">What languages does the pandit speak?</h4>
-                        <p className="text-muted-foreground">
-                          {pandit.languages && pandit.languages.length > 0 
-                            ? `The pandit speaks: ${pandit.languages.join(", ")}`
-                            : "Please contact the pandit directly for language preferences."}
-                        </p>
-                      </div>
-            </div>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-            </Tabs>
+            {/* FAQ Section */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-xl">Frequently Asked Questions</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-6">
+                  <div>
+                    <h4 className="font-semibold mb-2 text-stone-900">How do I book a pooja with this pandit?</h4>
+                    <p className="text-muted-foreground">
+                      Click the "Book Pooja" button above and select your preferred date and time. Complete the payment to confirm your booking.
+                    </p>
+                  </div>
+                  <Separator />
+                  <div>
+                    <h4 className="font-semibold mb-2 text-stone-900">What is the response time?</h4>
+                    <p className="text-muted-foreground">
+                      {pandit.response_time || "The pandit typically responds within 24 hours of booking confirmation."}
+                    </p>
+                  </div>
+                  <Separator />
+                  <div>
+                    <h4 className="font-semibold mb-2 text-stone-900">Can I get proof of the pooja?</h4>
+                    <p className="text-muted-foreground">
+                      Yes! After the pooja is completed, you will receive photos/videos as proof and a digital certificate.
+                    </p>
+                  </div>
+                  <Separator />
+                  <div>
+                    <h4 className="font-semibold mb-2 text-stone-900">What languages does the pandit speak?</h4>
+                    <p className="text-muted-foreground">
+                      {pandit.languages && pandit.languages.length > 0 
+                        ? `The pandit speaks: ${pandit.languages.join(", ")}`
+                        : "Please contact the pandit directly for language preferences."}
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
         </div>
         
           {/* Sidebar */}
@@ -520,7 +499,7 @@ export default async function PanditDetailPage({ params }: { params: Promise<{ i
             </Card>
 
             {/* Contact Information */}
-            <Card>
+            <Card id="contact">
               <CardHeader>
                 <CardTitle>Contact Information</CardTitle>
               </CardHeader>
@@ -571,7 +550,7 @@ export default async function PanditDetailPage({ params }: { params: Promise<{ i
                 </p>
                 {activeServices.length > 0 && (
                   <Link href={`/book/${activeServices[0].id}?panditId=${pandit.id}`}>
-                    <Button className="w-full" size="sm">
+                    <Button className="w-full bg-primary hover:bg-primary/90 text-white rounded-full shadow-md hover:shadow-lg transition-all" size="sm">
                       <Calendar className="mr-2 h-4 w-4" /> View Calendar
                     </Button>
                   </Link>

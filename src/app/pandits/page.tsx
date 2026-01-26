@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 export default async function PanditsPage() {
   const supabase = createClient()
   
-  // Query pandit_profiles first
+  // Query pandit_profiles - start simple without joins
   // Show published pandits (verification is optional for now)
   const { data: pandits, error: panditsError } = await supabase
     .from("pandit_profiles")
@@ -29,6 +29,11 @@ export default async function PanditsPage() {
       profile_status: pandits[0].profile_status,
       verification_status: pandits[0].verification_status
     })
+  } else {
+    console.error("No pandits returned! Check:")
+    console.error("1. Are there pandit_profiles with profile_status = 'published'?")
+    console.error("2. Are RLS policies allowing public read?")
+    console.error("3. Is the query returning null or empty array?")
   }
 
   // Get all profile IDs and fetch profiles separately
@@ -48,10 +53,35 @@ export default async function PanditsPage() {
     }
   }
 
+  // Fetch services separately for each pandit (if needed for Book Now button)
+  const panditIds = pandits?.map(p => p.id) || []
+  let servicesMap = new Map()
+  
+  if (panditIds.length > 0) {
+    const { data: allServices } = await supabase
+      .from("services")
+      .select("id, pandit_id, status, is_active_single_pooja")
+      .in("pandit_id", panditIds)
+      .eq("status", "published")
+      .eq("is_active_single_pooja", true)
+    
+    if (allServices) {
+      allServices.forEach((service: any) => {
+        if (!servicesMap.has(service.pandit_id)) {
+          servicesMap.set(service.pandit_id, [])
+        }
+        servicesMap.get(service.pandit_id)!.push(service)
+      })
+    }
+  }
+
   const formattedPandits = pandits?.map(p => ({
     ...p,
-    full_name: profilesMap.get(p.id)?.full_name || "Unknown Pandit"
-  }))
+    full_name: profilesMap.get(p.id)?.full_name || "Unknown Pandit",
+    services: servicesMap.get(p.id) || [] // Get services for this pandit
+  })) || []
+  
+  console.log("Formatted pandits count:", formattedPandits.length)
 
   return (
     <div className="min-h-screen bg-stone-50">
@@ -73,7 +103,7 @@ export default async function PanditsPage() {
                         className="pl-10 h-12 rounded-full border-stone-200 bg-stone-50 focus:bg-white transition-all"
                     />
                 </div>
-                <Button variant="outline" className="h-12 rounded-full px-6 border-stone-200">
+                <Button variant="outline" className="h-12 rounded-full px-6 border-stone-200 bg-white text-stone-900 hover:bg-stone-100 hover:text-stone-900 shadow-sm hover:shadow-md transition-all">
                     <Filter className="mr-2 h-4 w-4" /> Filters
                 </Button>
             </div>

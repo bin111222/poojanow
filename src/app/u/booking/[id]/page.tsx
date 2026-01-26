@@ -243,7 +243,7 @@ export default async function BookingDetailPage({ params }: { params: { id: stri
                           download
                           className="w-full"
                         >
-                          <Button variant="outline" className="w-full border-green-200 text-green-700 hover:bg-green-50">
+                          <Button variant="outline" className="w-full border-green-200 bg-white text-green-700 hover:bg-green-50 hover:text-green-800">
                             <Download className="mr-2 h-4 w-4" />
                             Download Certificate
                           </Button>
@@ -286,7 +286,7 @@ export default async function BookingDetailPage({ params }: { params: { id: stri
                     </Button>
                   </Link>
                   <Link href="/u/bookings" className="flex-1">
-                    <Button variant="outline" className="w-full border-green-200 text-green-700 hover:bg-green-50">
+                    <Button variant="outline" className="w-full border-green-200 bg-white text-green-700 hover:bg-green-50 hover:text-green-800">
                       View All Bookings
                     </Button>
                   </Link>

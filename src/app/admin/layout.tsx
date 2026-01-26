@@ -22,6 +22,9 @@ export default async function AdminLayout({
     .eq('id', user.id)
     .single()
 
+  // Allow access to grant-access page without admin role
+  // This is handled by a separate layout in /admin/grant-access/layout.tsx
+  
   if (profile?.role !== 'admin') {
     // In a real app, you might show a 403 page or redirect to home
     return (
@@ -32,7 +35,12 @@ export default async function AdminLayout({
                 </div>
                 <h1 className="text-2xl font-bold text-stone-900 mb-2">Access Denied</h1>
                 <p className="text-stone-600 mb-6">You do not have permission to access the Admin Console.</p>
-                <a href="/" className="text-primary font-medium hover:underline">Return to Home</a>
+                <div className="flex flex-col gap-3">
+                  <a href="/admin/grant-access" className="text-primary font-medium hover:underline bg-primary/10 px-4 py-2 rounded-lg">
+                    Grant Admin Access
+                  </a>
+                  <a href="/" className="text-stone-600 font-medium hover:underline">Return to Home</a>
+                </div>
             </div>
         </div>
     )
@@ -40,7 +48,7 @@ export default async function AdminLayout({
 
   return (
     <div className="min-h-screen bg-stone-50">
-      <header className="bg-white border-b border-stone-200 h-16 flex items-center px-6 sticky top-0 z-30">
+      <header className="bg-white border-b border-stone-200 h-16 flex items-center px-6 sticky top-0 z-40">
         <div className="font-bold text-xl flex items-center gap-2">
             <div className="h-8 w-8 bg-stone-900 rounded-lg flex items-center justify-center text-white text-sm">A</div>
             <span>Admin Console</span>
@@ -50,7 +58,7 @@ export default async function AdminLayout({
         </div>
       </header>
       <div className="flex">
-        <aside className="w-64 bg-white border-r border-stone-200 min-h-[calc(100vh-4rem)] hidden md:block sticky top-16 self-start">
+        <aside className="w-64 bg-white border-r border-stone-200 min-h-[calc(100vh-4rem)] hidden md:block sticky top-16 self-start z-30">
           <div className="p-4">
              <AdminNav />
           </div>

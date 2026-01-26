@@ -40,3 +40,4 @@ COMMENT ON COLUMN pandit_profiles.lineage IS 'Guru parampara or spiritual lineag
 COMMENT ON COLUMN pandit_profiles.service_areas IS 'Geographic areas where pandit provides services';
 COMMENT ON COLUMN pandit_profiles.pooja_types IS 'Types of poojas the pandit specializes in';
 
+

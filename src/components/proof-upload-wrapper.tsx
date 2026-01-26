@@ -17,3 +17,4 @@ export function ProofUploadWrapper({ bookingId }: ProofUploadWrapperProps) {
   return <ProofUpload bookingId={bookingId} onUploadSuccess={handleUploadSuccess} />
 }
 
+

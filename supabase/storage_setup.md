@@ -114,3 +114,4 @@ WITH CHECK (
 - The folder structure for proofs: `pooja-proofs/{bookingId}/{timestamp}-{random}.{ext}`
 - The folder structure for certificates: `certificates/{bookingId}/certificate.pdf`
 
+
